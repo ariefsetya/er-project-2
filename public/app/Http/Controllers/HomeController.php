@@ -46,6 +46,7 @@ class HomeController extends Controller
         return view('admin');
     }
     public function set_winner($response_id = 0, $invitation_id = 0)
+    {
         if($response_id > 0 and $invitation_id > 0){
             $pol = PollingResponse::find($response_id);
             if($pol->invitation_id==$invitation_id){
