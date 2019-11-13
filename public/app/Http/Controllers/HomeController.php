@@ -45,6 +45,19 @@ class HomeController extends Controller
     {
         return view('admin');
     }
+    public function set_winner($response_id = 0, $invitation_id = 0)
+        if($response_id > 0 and $invitation_id > 0){
+            $pol = PollingResponse::find($response_id);
+            if($pol->invitation_id==$invitation_id){
+                $pol->is_winner = 1;
+                $pol->save();
+                
+                return response()->json(['message'=>'saved!'],200);
+            }else{
+                return response()->json(['message'=>'invitation not match'],422);
+            }
+        }
+    }
     public function select_polling_response($polling_question_id = 0, $polling_answer_id = 0)
     {
         if($polling_question_id > 0 and $polling_answer_id > 0){
@@ -80,6 +93,8 @@ class HomeController extends Controller
                 $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                 $data->save();
 
+                $data->created_at = date("H:i:s",strtotime($data->created_at));
+                
                 return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
             }else{
                 $data = new PollingResponse;

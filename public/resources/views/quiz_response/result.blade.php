@@ -7,6 +7,7 @@
     </div>
     <hr>
     <div id="winner_box" style="display: none;">
+      <h1>PEMENANG</h1>
       <h2 id="name"></h2>
       <h3 id="company"></h3>
       <h5 id="answer_text"></h5>
@@ -32,6 +33,15 @@
       $("#answer_text").html(msg.data.answer_text);
       $("#created_at").html(msg.data.created_at);
       $("#winner_box").fadeIn();
+
+      $.ajax({
+          url: "{{route('set_winner')}}/"+msg.data.id+'/'+msg.user.id, 
+          dataType:'json',
+          method:'GET',
+          success: function(result){
+
+        }
+      });
     }
   });
 </script>

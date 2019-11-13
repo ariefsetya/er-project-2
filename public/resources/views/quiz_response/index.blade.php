@@ -21,7 +21,7 @@
       	{{$polling->finish_message}}
       </div>
       <div class="modal-footer">
-        <a href="{{route('home')}}" class="btn btn-primary btn-block">OK</a>
+        {{$polling_question->render('vendor.pagination.quiz')}}
       </div>
     </div>
   </div>

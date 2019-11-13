@@ -22,6 +22,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/quiz_join/{id}','HomeController@quiz_join')->name('quiz_join');
 Route::get('/polling_response/{id}','HomeController@polling_response')->name('polling_response');
 Route::get('/polling_response/{question_id?}/{answer_id?}','HomeController@select_polling_response')->name('select_polling_response');
+Route::get('/set_winner/{response_id?}/{invitation_id?}','HomeController@set_winner')->name('set_winner');
 Route::get('/quiz_result','HomeController@quiz_result')->name('quiz_result');
 
 Route::post('/join_quiz/{id}', function(Illuminate\Http\Request $r,$id)
