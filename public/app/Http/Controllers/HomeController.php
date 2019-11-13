@@ -80,7 +80,7 @@ class HomeController extends Controller
                 $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                 $data->save();
 
-                return response()->json(['message'=>'saved!','win'=>true,'response'=>$data,'user'=>Auth::user()],200);
+                return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
             }else{
                 $data = new PollingResponse;
                 $data->event_id = 1;
@@ -93,7 +93,7 @@ class HomeController extends Controller
 
                 $data->created_at = date("H:i:s",strtotime($data->created_at));
 
-                return response()->json(['message'=>'saved!','win'=>true,'response'=>$data,'user'=>Auth::user()],200);
+                return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
             }
         }
     }
