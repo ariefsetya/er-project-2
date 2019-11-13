@@ -41,7 +41,7 @@
 		  	success: function(result){
 		  		$("#finishDialog").modal('show');
           if(result.win){
-            socket.emit('quiz',{"name":'{{Auth::user()->name}}','answer_id':answer_id,'question_id':question_id});
+            socket.emit('quiz',result);
           }
 			}
 		});
