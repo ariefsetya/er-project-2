@@ -10,6 +10,7 @@ use App\Polling;
 use App\Product;
 use App\ProductResponse;
 use Auth;
+use Validator;
 
 class HomeController extends Controller
 {
@@ -17,13 +18,33 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    public function quiz_result()
+    public function quiz_result($id)
     {
-        return view('quiz_response.result');
+        $data['polling'] = \App\Polling::find($id);
+        return view('quiz_response.result')->with($data);;
     }
     public function quiz_join($id)
     {
-        return view('quiz_response.join')->with(['id'=>$id]);
+        $data['polling'] = \App\Polling::find($id);
+        return view('quiz_response.join')->with($data);
+    }
+    public function join_quiz(Request $r, $id)
+    {
+        $messages = [
+            'name.required' => 'Nama harus diisi',
+            'name.min' => 'Nama minimal :min karakter',
+            'company.required' => 'Nama Dealer harus diisi',
+            'company.min' => 'Nama Dealer minimal :min karakter',
+        ];
+        Validator::make($r->all(), [
+            'name' => 'required|min:3',
+            'company' => 'required|min:3'
+        ],$messages)->validate();
+
+        $user = \App\User::create(['name'=>$r->input('name'), 'company'=>$r->input('company')]);
+        Auth::loginUsingId($user->id);
+
+        return redirect()->route('quiz_response',[$id]);
     }
     public function polling_response($id)
     {
@@ -48,15 +69,44 @@ class HomeController extends Controller
     public function set_winner($response_id = 0, $invitation_id = 0)
     {
         if($response_id > 0 and $invitation_id > 0){
-            $pol = PollingResponse::find($response_id);
-            if($pol->invitation_id==$invitation_id){
-                $pol->is_winner = 1;
-                $pol->save();
+            $polres = PollingResponse::find($response_id);
+            $polques = PollingQuestion::where('polling_id',$pol->polling_id)->count();
+            if($polres->invitation_id==$invitation_id){
                 
-                return response()->json(['message'=>'saved!'],200);
+                $correct = 0;
+                if(PollingResponse::where('invitation_id',$invitation_id)->count()==$polques){
+                    foreach (PollingQuestion::where('polling_id',$pol->polling_id)->get() as $key) {
+                        if(PollingResponse::where('question_id',$key->id)->where('invitation_id',$invitation_id)->first()->answer_id==PollingAnswer::where('question_id',$key->id)->where('is_correct',1)->first()->id){
+                            $correct++;
+                        }else{
+                            return response()->json(['message'=>'saved!','win'=>false],200);
+                        }
+                    }
+                }else{
+                    return response()->json(['message'=>'saved!','win'=>false],200);
+                }
+
+                if($correct==$polques){
+                    return response()->json(['message'=>'saved!','win'=>true],200);
+                }
+                
             }else{
-                return response()->json(['message'=>'invitation not match'],422);
+                return response()->json(['message'=>'invitation not match','win'=>false],422);
             }
+        }
+    }
+    public function check_winner($polling_id = 0, $invitation_id = 0)
+    {
+        if($invitation_id > 0){
+            $correct = PollingResponse::where('is_winner',1)->where('invitation_id',$invitation_id)->count();
+            $polques = PollingQuestion::where('polling_id',$polling_id)->count();
+            if($correct==$polques){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
         }
     }
     public function select_polling_response($polling_question_id = 0, $polling_answer_id = 0)
@@ -94,7 +144,16 @@ class HomeController extends Controller
                 $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                 $data->save();
                 
-                return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
+                if(PollingAnswer::where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){
+                    $data->is_winner = 1;
+                    $data->save();
+                }
+                
+                if($this->check_winner($data->polling_id, Auth::user()->id)){
+                    return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
+                }else{
+                    return response()->json(['message'=>'saved!','win'=>false],200);
+                }
             }else{
                 $data = new PollingResponse;
                 $data->event_id = 1;
@@ -104,8 +163,17 @@ class HomeController extends Controller
                 $data->polling_answer_id = $polling_answer_id;
                 $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                 $data->save();
+                
+                if(PollingAnswer::where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){
+                    $data->is_winner = 1;
+                    $data->save();
+                }
 
-                return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
+                if($this->check_winner($data->polling_id, Auth::user()->id)){
+                    return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
+                }else{
+                    return response()->json(['message'=>'saved!','win'=>false],200);
+                }
             }
         }
     }
