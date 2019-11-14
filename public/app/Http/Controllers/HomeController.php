@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\PollingQuestion;
 use App\PollingResponse;
 use App\PollingAnswer;
+use App\PollingParticipant;
 use App\Polling;
 use App\Product;
 use App\ProductResponse;
@@ -98,7 +99,8 @@ class HomeController extends Controller
     public function check_winner($polling_id = 0, $invitation_id = 0)
     {
         if($invitation_id > 0){
-            $correct = PollingResponse::where('is_winner',1)->where('invitation_id',$invitation_id)->count();
+            $answer = PollingResponse::where('invitation_id',$invitation_id)->where('polling_id',$polling_id)->count();
+            $correct = PollingResponse::where('is_winner',1)->where('invitation_id',$invitation_id)->where('polling_id',$polling_id)->count();
             $polques = PollingQuestion::where('polling_id',$polling_id)->count();
             if($correct==$polques){
                 return true;

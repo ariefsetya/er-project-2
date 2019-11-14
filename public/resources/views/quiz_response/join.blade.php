@@ -10,8 +10,8 @@
 
     {{csrf_field()}}
     <div class="form-group text-center">
-      <label for="name" class="form-control-lg">Nama</label>
-      <input type="text" class="form-control form-control-lg" id="name" name="name" value="{{ old('name') }}">
+      <label for="name" class="form-control-lg">NAMA</label>
+      <input type="text" class="form-control form-control-lg text-center" id="name" name="name" value="{{ old('name') }}" style="text-transform: uppercase;">
       @if($errors->any())
         @foreach ($errors->get('name') as $message)
         <div class="invalid-feedback">
@@ -21,8 +21,8 @@
       @endif
     </div>
     <div class="form-group text-center">
-      <label for="company" class="form-control-lg">Nama Dealer</label>
-      <input type="text" class="form-control form-control-lg" id="company" name="company" value="{{ old('company') }}">
+      <label for="company" class="form-control-lg">NAMA DEALER</label>
+      <input type="text" class="form-control form-control-lg text-center" id="company" name="company" value="{{ old('company') }}"style="text-transform: uppercase;">
       @if($errors->any())
         @foreach ($errors->get('company') as $message)
         <div class="invalid-feedback">
@@ -31,7 +31,7 @@
         @endforeach
       @endif
     </div>
-    <button type="submit" class="btn btn-primary btn-block btn-lg">Mulai {{$polling->name}}</button>
+    <button type="submit" class="btn btn-primary btn-block btn-lg">SELANJUTNYA</button>
     <br>
   </form>
 </div>
