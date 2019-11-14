@@ -97,13 +97,10 @@
 @section('footer')
 	@if(!Session::has($code))
 		<script type="text/javascript">
-      $(window).ready(function() {
-        showPage();
+      $(window).on('load',function() {
+        $("#loader").fadeOut();
+        $("#myDiv").fadeIn();
       });
-      function showPage() {
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("myDiv").style.display = "block";
-      }
 			function selectresponse(response_id) {
 				$.ajax({
 				  	url: "{{route('response_product')}}/"+'{{$code}}'+'/'+response_id, 
