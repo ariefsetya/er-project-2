@@ -102,8 +102,23 @@ class HomeController extends Controller
             $answer = PollingResponse::where('invitation_id',$invitation_id)->where('polling_id',$polling_id)->count();
             $correct = PollingResponse::where('is_winner',1)->where('invitation_id',$invitation_id)->where('polling_id',$polling_id)->count();
             $polques = PollingQuestion::where('polling_id',$polling_id)->count();
-            if($correct==$polques){
-                return true;
+            if($answer==$polques){
+                if($correct==$polques){
+                    PollingParticipant::create([
+                        'invitation_id'=>$invitation_id,
+                        'polling_id'=>$polling_id,
+                        'is_winner'=>1
+                    ]);
+
+                    return true;
+                }else{
+                    PollingParticipant::create([
+                        'invitation_id'=>$invitation_id,
+                        'polling_id'=>$polling_id,
+                        'is_winner'=>0
+                    ]);
+                    return false;
+                }
             }else{
                 return false;
             }
@@ -139,42 +154,47 @@ class HomeController extends Controller
     public function select_quiz_response($polling_question_id = 0, $polling_answer_id = 0)
     {
         if($polling_question_id > 0 and $polling_answer_id > 0){
-            if(PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::find($polling_question_id)->polling_id)->where('invitation_id',Auth::user()->id)->exists()){
-                $id = PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::find($polling_question_id)->polling_id)->where('invitation_id',Auth::user()->id)->first()->id;
-                $data = PollingResponse::find($id);
-                $data->polling_answer_id = $polling_answer_id;
-                $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
-                $data->save();
-                
-                if(PollingAnswer::where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){
-                    $data->is_winner = 1;
+            if(PollingParticipant::where('polling_id',PollingQuestion::find($polling_question_id)->polling_id)
+                ->where('invitation_id',Auth::user()->id)->exists()){
+                return response()->json(['message'=>'saved!','win'=>false],200);
+            }else{ 
+                if(PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::find($polling_question_id)->polling_id)->where('invitation_id',Auth::user()->id)->exists()){
+                    $id = PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::find($polling_question_id)->polling_id)->where('invitation_id',Auth::user()->id)->first()->id;
+                    $data = PollingResponse::find($id);
+                    $data->polling_answer_id = $polling_answer_id;
+                    $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                     $data->save();
-                }
-                
-                if($this->check_winner($data->polling_id, Auth::user()->id)){
-                    return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
+                    
+                    if(PollingAnswer::where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){
+                        $data->is_winner = 1;
+                        $data->save();
+                    }
+                    
+                    if($this->check_winner($data->polling_id, Auth::user()->id)){
+                        return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
+                    }else{
+                        return response()->json(['message'=>'saved!','win'=>false],200);
+                    }
                 }else{
-                    return response()->json(['message'=>'saved!','win'=>false],200);
-                }
-            }else{
-                $data = new PollingResponse;
-                $data->event_id = 1;
-                $data->polling_id = PollingQuestion::find($polling_question_id)->polling_id;
-                $data->invitation_id = Auth::user()->id;
-                $data->polling_question_id = $polling_question_id;
-                $data->polling_answer_id = $polling_answer_id;
-                $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
-                $data->save();
-                
-                if(PollingAnswer::where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){
-                    $data->is_winner = 1;
+                    $data = new PollingResponse;
+                    $data->event_id = 1;
+                    $data->polling_id = PollingQuestion::find($polling_question_id)->polling_id;
+                    $data->invitation_id = Auth::user()->id;
+                    $data->polling_question_id = $polling_question_id;
+                    $data->polling_answer_id = $polling_answer_id;
+                    $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                     $data->save();
-                }
+                    
+                    if(PollingAnswer::where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){
+                        $data->is_winner = 1;
+                        $data->save();
+                    }
 
-                if($this->check_winner($data->polling_id, Auth::user()->id)){
-                    return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
-                }else{
-                    return response()->json(['message'=>'saved!','win'=>false],200);
+                    if($this->check_winner($data->polling_id, Auth::user()->id)){
+                        return response()->json(['message'=>'saved!','win'=>true,'data'=>$data,'user'=>Auth::user()],200);
+                    }else{
+                        return response()->json(['message'=>'saved!','win'=>false],200);
+                    }
                 }
             }
         }

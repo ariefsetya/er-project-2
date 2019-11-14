@@ -19,6 +19,19 @@
   <br>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="finishDialog" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body text-center">
+        {{$polling->finish_message}}
+      </div>
+      <div class="modal-footer">
+        <a onclick="redirect_home()" class="btn btn-primary btn-block">OK</a>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
 
 @section('footer')
@@ -38,8 +51,13 @@
 	}
 
   function finish_quiz() {
+    $("#finishDialog").modal('show');
+  }
+  function redirect_home() {
     if(winner.win){
       socket.emit('quiz',winner);
+      window.location = '{{route('removeRedirectToHome')}}';
+    }else{
       window.location = '{{route('removeRedirectToHome')}}';
     }
   }
