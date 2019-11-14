@@ -27,7 +27,7 @@
         {{$polling->finish_message}}
       </div>
       <div class="modal-footer">
-        <a onclick="redirect_home()" class="btn btn-primary btn-block">OK</a>
+        <a onclick="redirect_home()" class="btn text-white btn-lg btn-primary btn-block">OK</a>
       </div>
     </div>
   </div>
@@ -62,5 +62,9 @@
     }
   }
 
+    preventBack();
+   function preventBack(){window.history.forward();}
+    setTimeout("preventBack()", 0);
+    window.onunload=function(){null};
 </script>
 @endsection

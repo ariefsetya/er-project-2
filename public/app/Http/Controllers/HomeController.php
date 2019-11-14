@@ -51,9 +51,13 @@ class HomeController extends Controller
     {
         $data['polling'] = \App\Polling::find($id);
         $data['polling_question'] = \App\PollingQuestion::where('polling_id',$id)->paginate(1);
+        if(isset($data['polling_question'][0])){
         $data['polling_answer'] = \App\PollingAnswer::where('polling_question_id',$data['polling_question'][0]->id)->get();
 
-        return view('polling_response.index')->with($data);
+            return view('polling_response.index')->with($data);
+        }else{
+            abort(404);
+        }
     }
     public function quiz_response($id)
     {
@@ -66,35 +70,6 @@ class HomeController extends Controller
     public function admin()
     {
         return view('admin');
-    }
-    public function set_winner($response_id = 0, $invitation_id = 0)
-    {
-        if($response_id > 0 and $invitation_id > 0){
-            $polres = PollingResponse::find($response_id);
-            $polques = PollingQuestion::where('polling_id',$pol->polling_id)->count();
-            if($polres->invitation_id==$invitation_id){
-                
-                $correct = 0;
-                if(PollingResponse::where('invitation_id',$invitation_id)->count()==$polques){
-                    foreach (PollingQuestion::where('polling_id',$pol->polling_id)->get() as $key) {
-                        if(PollingResponse::where('question_id',$key->id)->where('invitation_id',$invitation_id)->first()->answer_id==PollingAnswer::where('question_id',$key->id)->where('is_correct',1)->first()->id){
-                            $correct++;
-                        }else{
-                            return response()->json(['message'=>'saved!','win'=>false],200);
-                        }
-                    }
-                }else{
-                    return response()->json(['message'=>'saved!','win'=>false],200);
-                }
-
-                if($correct==$polques){
-                    return response()->json(['message'=>'saved!','win'=>true],200);
-                }
-                
-            }else{
-                return response()->json(['message'=>'invitation not match','win'=>false],422);
-            }
-        }
     }
     public function check_winner($polling_id = 0, $invitation_id = 0)
     {
