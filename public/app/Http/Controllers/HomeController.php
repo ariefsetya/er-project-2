@@ -44,13 +44,11 @@ class HomeController extends Controller
     {
         $messages = [
             'name.required' => 'Nama harus diisi',
-            'name.min' => 'Nama minimal :min karakter',
             'company.required' => 'Nama Dealer harus diisi',
-            'company.min' => 'Nama Dealer minimal :min karakter',
         ];
         Validator::make($r->all(), [
-            'name' => 'required|min:3',
-            'company' => 'required|min:3'
+            'name' => 'required',
+            'company' => 'required'
         ],$messages)->validate();
 
         $user = \App\User::create(['name'=>$r->input('name'), 'company'=>$r->input('company')]);
