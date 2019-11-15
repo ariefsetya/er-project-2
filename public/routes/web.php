@@ -32,9 +32,10 @@ Route::get('/quiz_result_data/{polling_id}','HomeController@quiz_result_data')->
 
 Route::post('/join_quiz/{id}', 'HomeController@join_quiz')->name('join_quiz');
 
+Route::get('/logout','CustomAuthController@logout')->name('logout');
+
 Route::middleware(['auth'])->group(function () {
 
-	Route::get('/logout','CustomAuthController@logout')->name('logout');
 	Route::get('/quiz_response/{id}','HomeController@quiz_response')->name('quiz_response');
 	Route::get('/quiz_response/{question_id?}/{answer_id?}','HomeController@select_quiz_response')->name('select_quiz_response');
 
