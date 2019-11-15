@@ -10,7 +10,7 @@
 	    		<th>Tipe Polling</th>
 	    		<th>Nama</th>
                 <th>Pesan Selesai</th>
-	    		<th colspan="2">Action</th>
+	    		<th colspan="3">Action</th>
 	    	</tr>
     	</thead>
     	<tbody>

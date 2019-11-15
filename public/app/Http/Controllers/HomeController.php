@@ -21,12 +21,19 @@ class HomeController extends Controller
     }
     public function quiz_result($id)
     {
-        $data['polling'] = \App\Polling::find($id);
-        return view('quiz_response.result')->with($data);;
+        $data['polling'] = Polling::find($id);
+        return view('quiz_response.result')->with($data);
+    }
+    public function quiz_result_data($id)
+    {
+        $data['polling'] = Polling::find($id);
+        $data['polling_participant'] = PollingParticipant::with(['invitation'])->where('polling_id',$id)->where('is_winner',1)->orderBy('id','asc')->get();
+
+        return response()->json($data,200);
     }
     public function quiz_join($id)
     {
-        $data['polling'] = \App\Polling::find($id);
+        $data['polling'] = Polling::find($id);
         return view('quiz_response.join')->with($data);
     }
     public function join_quiz(Request $r, $id)
@@ -49,10 +56,10 @@ class HomeController extends Controller
     }
     public function polling_response($id)
     {
-        $data['polling'] = \App\Polling::find($id);
-        $data['polling_question'] = \App\PollingQuestion::where('polling_id',$id)->paginate(1);
+        $data['polling'] = Polling::find($id);
+        $data['polling_question'] = PollingQuestion::where('polling_id',$id)->paginate(1);
         if(isset($data['polling_question'][0])){
-        $data['polling_answer'] = \App\PollingAnswer::where('polling_question_id',$data['polling_question'][0]->id)->get();
+        $data['polling_answer'] = PollingAnswer::where('polling_question_id',$data['polling_question'][0]->id)->get();
 
             return view('polling_response.index')->with($data);
         }else{
@@ -61,9 +68,9 @@ class HomeController extends Controller
     }
     public function quiz_response($id)
     {
-        $data['polling'] = \App\Polling::find($id);
-        $data['polling_question'] = \App\PollingQuestion::where('polling_id',$id)->paginate(1);
-        $data['polling_answer'] = \App\PollingAnswer::where('polling_question_id',$data['polling_question'][0]->id)->get();
+        $data['polling'] = Polling::find($id);
+        $data['polling_question'] = PollingQuestion::where('polling_id',$id)->paginate(1);
+        $data['polling_answer'] = PollingAnswer::where('polling_question_id',$data['polling_question'][0]->id)->get();
 
         return view('quiz_response.index')->with($data);
     }
@@ -104,23 +111,28 @@ class HomeController extends Controller
     public function select_polling_response($polling_question_id = 0, $polling_answer_id = 0)
     {
         if($polling_question_id > 0 and $polling_answer_id > 0){
-            if(PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::find($polling_question_id)->polling_id)->where('uuid',\Session::get('uuid'))->exists()){
-                $id = PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::find($polling_question_id)->polling_id)->where('uuid',\Session::get('uuid'))->first()->id;
+            $polling_id = PollingQuestion::find($polling_question_id)->polling_id;
+            if(PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',$polling_id)->where('uuid',\Session::get('uuid'))->exists()){
+                $id = PollingResponse::where('polling_question_id',$polling_question_id)->where('polling_id',$polling_id)->where('uuid',\Session::get('uuid'))->first()->id;
                 $data = PollingResponse::find($id);
                 $data->polling_answer_id = $polling_answer_id;
                 $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                 $data->save();
 
+                \Session::put('polling_'.$polling_id,true);
+
                 return response()->json(['message'=>'saved!'],200);
             }else{
                 $data = new PollingResponse;
                 $data->event_id = 1;
-                $data->polling_id = PollingQuestion::find($polling_question_id)->polling_id;
+                $data->polling_id = $polling_id;
                 $data->uuid = \Session::get('uuid');
                 $data->polling_question_id = $polling_question_id;
                 $data->polling_answer_id = $polling_answer_id;
                 $data->answer_text = PollingAnswer::find($polling_answer_id)->content;
                 $data->save();
+
+                \Session::put('polling_'.$polling_id,true);
 
                 return response()->json(['message'=>'saved!'],200);
             }

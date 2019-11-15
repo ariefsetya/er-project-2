@@ -7,6 +7,8 @@ use App\Presence;
 use App\Country;
 use DB;
 use Illuminate\Http\Request;
+use App\Exports\PresenceExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InvitationController extends Controller
 {
@@ -51,6 +53,10 @@ class InvitationController extends Controller
         $data['presence'] = Presence::select(DB::raw("id, invitation_id, min(created_at) as start_time, max(created_at) as end_time"))->with(['invitation'])->orderBy('created_at','asc')->groupBy('invitation_id')->get();
         // dd($data);
         return view('invitation.report')->with($data);
+    }
+    public function export_excel()
+    {
+        return Excel::download(new PresenceExport, 'laproan_kehadiran.xlsx');
     }
     public function clear($id)
     {

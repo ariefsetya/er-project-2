@@ -8,7 +8,7 @@
     <hr>
     @for($i=0;$i<$polling->max_winner;$i++)
     <div id="winner_box_{{$i}}" class="text-center" style="display: none;">
-      <h1>PEMENANG {{ $polling->max_winner>0?$i:'' }}</h1>
+      <h1>PEMENANG {{ $polling->max_winner>0?($i+1):'' }}</h1>
       <h2 id="name_{{$i}}"></h2>
       <h3 id="company_{{$i}}"></h3>
       <h5 id="created_at_{{$i}}"></h5>
@@ -25,6 +25,7 @@
 <script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
   var socket = io("http://localhost:3000");
+
 
   @for($i=0;$i<$polling->max_winner;$i++)
   var isi{{$i}} = false;
@@ -47,6 +48,22 @@
         });
       }
     i++;
+  });
+
+  
+  $.ajax({
+      url: "{{route('quiz_result_data',[$polling->id])}}", 
+      dataType:'json',
+      method:'GET',
+      success: function(result){
+        var participant = result.polling_participant;
+        for (var x = 0; x < participant.length; x++) {
+          $("#name_"+x).html(participant[x].invitation.name);
+          $("#company_"+x).html(participant[x].invitation.company);
+          $("#created_at_"+x).html(participant[x].created_at);
+          $("#winner_box_"+x).fadeIn();
+        }
+    }
   });
 </script>
 @endsection

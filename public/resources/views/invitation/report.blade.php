@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="">
-    <h2>Laporan Kehadiran</h2>
+    <h2>Laporan Kehadiran
+    <a class="btn btn-primary float-right" href="{{route('invitation.export_excel')}}">Export</a></h2>
     <table class="table for_datatables">
     	<thead>
     		<tr>

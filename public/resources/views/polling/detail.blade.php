@@ -32,11 +32,12 @@
         ];
 	var ctx = document.getElementById('myChart');
 	
-	{{$i=0}}
+	<?php $i=0; ?>
 
 	var myChart = new Chart(ctx, {
 	    type: 'bar',
 	    data: {
+	    	labels:[''],
 	        datasets: [
 	        @foreach($polling_response as $row)
 
@@ -61,7 +62,12 @@
 	            }]
 	        },
 		    legend: {
-		        display: true
+		        display: true,
+		        labels:{
+		        	fontSize:25
+		        },
+		        align:'center',
+		        position:'right'
 		    }
 	    }
 	});

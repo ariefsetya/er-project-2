@@ -46,6 +46,10 @@
 		  	method:'GET',
 		  	success: function(result){
           winner = result;
+          
+          $(".for_button").removeClass("disabled");
+          $(".for_button").removeClass("btn-secondary");
+          $(".for_button").addClass("btn-primary");
         }
 		});
 	}

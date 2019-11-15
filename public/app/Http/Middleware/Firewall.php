@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Presence;
+use App\Product;
 use Session;
 use Illuminate\Support\Str;
 
@@ -38,6 +39,14 @@ class Firewall
         $pre->event_id = 1;
         $pre->uri = $request->url();
         $pre->invitation_id = $user_id;
+        $pre->uuid = Session::get('uuid');
+        if(Str::contains($request->url(),'products/')){
+            $ex = explode("/", $request->url());
+            $code = $ex[sizeof($ex)-1];
+            $pre->product_id = Product::where('code',$code)->first()->id;
+        }else{
+            $pre->product_id = 0;   
+        }
         $pre->save();
 
         return $next($request);

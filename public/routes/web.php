@@ -28,6 +28,7 @@ Route::get('/polling_response/{id}','HomeController@polling_response')->name('po
 Route::get('/polling_response/{question_id?}/{answer_id?}','HomeController@select_polling_response')->name('select_polling_response');
 Route::get('/set_winner/{response_id?}/{invitation_id?}','HomeController@set_winner')->name('set_winner');
 Route::get('/quiz_result/{polling_id}','HomeController@quiz_result')->name('quiz_result');
+Route::get('/quiz_result_data/{polling_id}','HomeController@quiz_result_data')->name('quiz_result_data');
 
 Route::post('/join_quiz/{id}', 'HomeController@join_quiz')->name('join_quiz');
 
@@ -41,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::get('/presence/report','InvitationController@report')->name('presence.report');
+    Route::get('/presence/export/excel', 'InvitationController@export_excel')->name('invitation.export_excel');
+    Route::get('/product/report','HomeController@product_report')->name('presence.report');
     Route::get('/invitation/{id}/clear','InvitationController@clear')->name('invitation.clear');
     Route::get('/polling/report','PollingController@report')->name('polling.report');
     Route::get('/','HomeController@admin')->name('admin');
