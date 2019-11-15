@@ -60,7 +60,9 @@ class CustomAuthController extends Controller
     }
     public function logout()
     {
-		Auth::logout();
+    	if(Auth::check()){
+			Auth::logout();
+		}
 		return redirect()->route('home');
     }
 }
