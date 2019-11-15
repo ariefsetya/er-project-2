@@ -209,7 +209,6 @@ class HomeController extends Controller
     }
     public function product_report()
     {
-        $query = DB::query("SELECT a.name, FROM ms_product a LEFT JOIN ")
         return view('product.report')
     }
 }
