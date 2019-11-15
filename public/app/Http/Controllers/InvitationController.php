@@ -56,7 +56,7 @@ class InvitationController extends Controller
     }
     public function export_excel()
     {
-        return Excel::download(new PresenceExport, 'laproan_kehadiran.xlsx');
+        return Excel::download(new PresenceExport, 'laporan_kehadiran.xlsx');
     }
     public function clear($id)
     {

@@ -9,10 +9,13 @@ use App\PollingAnswer;
 use App\PollingParticipant;
 use App\Polling;
 use App\Product;
+use App\Presence;
 use App\ProductResponse;
 use Auth;
 use DB;
 use Validator;
+use App\Exports\ProductExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -209,6 +212,24 @@ class HomeController extends Controller
     }
     public function product_report()
     {
-        return view('product.report');
+        $prores = ProductResponse::select(DB::raw('product_id, coalesce(sum(case when response_id=1 then 1 end),0) as yes,coalesce(sum(case when response_id=0 then 1 end),0) as no'))->with(['product'])->groupBy('product_id')->get();
+        $arr = [];
+        foreach ($prores as $key) {
+            $arr[] = [
+                'code'=>$key->product->code,
+                'yes'=>$key->yes,
+                'no'=>$key->no,
+                'visit'=>Presence::where('product_id',$key->product_id)->count()
+            ];
+        }
+
+        $data['summary'] = collect($arr);
+
+
+        return view('product.report')->with($data);
+    }
+    public function product_export_excel()
+    {
+        return Excel::download(new ProductExport, 'laporan_produk.xlsx');
     }
 }
