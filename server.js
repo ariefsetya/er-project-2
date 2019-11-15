@@ -51,8 +51,6 @@ api(app);
 
 
 
-const httpsServer = https.createServer(credentials, app);
-
-httpsServer.listen(port, () => {
+https.listen(port, () => {
   console.log('HTTPS Server running on port 443');
 });
