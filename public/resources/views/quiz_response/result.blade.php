@@ -22,9 +22,9 @@
 @endsection
 
 @section('footer')
-<script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="{{url()}}/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  var socket = io("http://localhost:3000");
+  var socket = io("{{url()}}");
 
 
   @for($i=0;$i<$polling->max_winner;$i++)
