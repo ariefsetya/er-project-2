@@ -2,9 +2,6 @@ var express = require('express'),
     app = express(),
     port = 3000,
     bodyParser = require('body-parser'),
-    http = require('http').createServer(app),
-    io = require('socket.io')(http)
-    https = require('https'),
     fs = require('fs');
 
 
@@ -20,6 +17,10 @@ const credentials = {
   cert: certificate,
   ca: ca
 };
+
+var http = require('http').createServer(app),
+    https = require('https').createServer(credentials, app),
+    io = require('socket.io')(https)
 
 path = __dirname;
 
@@ -52,6 +53,6 @@ api(app);
 
 const httpsServer = https.createServer(credentials, app);
 
-httpsServer.listen(443, () => {
+httpsServer.listen(port, () => {
   console.log('HTTPS Server running on port 443');
 });
