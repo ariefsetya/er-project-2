@@ -22,9 +22,9 @@
 @endsection
 
 @section('footer')
-<script type="text/javascript" src="{{Str::replaceArray('https', ['http'], url(''))}}:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="{{url('')}}:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  var socket = io("{{Str::replaceArray('https', ['http'], url(''))}}:3000");
+  var socket = io("{{url('')}}:3000");
 
 
   @for($i=0;$i<$polling->max_winner;$i++)
