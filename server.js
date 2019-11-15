@@ -28,8 +28,8 @@ app.use(express.static(__dirname + '/'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var api = require('./routes/api');
-api(app);
+// var api = require('./routes/api');
+// api(app);
 
 	io.on('connection', function(socket){
 	  console.log('a user connected');
