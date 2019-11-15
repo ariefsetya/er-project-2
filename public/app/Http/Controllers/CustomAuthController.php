@@ -7,6 +7,7 @@ use App\Presence;
 use App\EventDetail;
 use App\Invitation;
 use App\User;
+use Session;
 use Illuminate\Http\Request;
 
 class CustomAuthController extends Controller
