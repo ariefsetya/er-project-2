@@ -35,10 +35,10 @@
 @endsection
 
 @section('footer')
-<script type="text/javascript" src="{{url('')}}/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="{{url('')}}:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
   var winner = [];
-  var socket = io("{{url('')}}");
+  var socket = io("{{url('')}}:3000");
 	function selectdata(question_id, answer_id) {
 		$.ajax({
 		  	url: "{{route('select_quiz_response')}}/"+question_id+'/'+answer_id, 
