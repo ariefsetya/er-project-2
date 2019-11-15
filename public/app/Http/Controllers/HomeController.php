@@ -209,6 +209,6 @@ class HomeController extends Controller
     }
     public function product_report()
     {
-        return view('product.report')
+        return view('product.report');
     }
 }
