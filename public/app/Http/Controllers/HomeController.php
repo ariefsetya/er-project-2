@@ -23,6 +23,11 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function polling_question($id)
+    {
+        $data['polling_question'] = PollingQuestion::where('polling_id',$id)->get();
+        return response()->json($data);
+    }
     public function quiz_result($id)
     {
         $data['polling'] = Polling::find($id);
@@ -67,6 +72,19 @@ class HomeController extends Controller
         }else{
             abort(404);
         }
+    }
+    public function screen()
+    {
+        $data['polling'] = Polling::all();
+        $arr = [];
+        foreach ($data['polling'] as $key) {
+            $arr[] = [
+                'polling'=>$key,
+                'question'=>PollingQuestion::where('polling_id',$key->id)->get()
+            ];
+        }
+        $data['result'] = $arr;
+        return view('screen.index')->with($data);
     }
     public function quiz_response($id)
     {

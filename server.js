@@ -6,7 +6,7 @@ var express = require('express'),
 
 
 
-// Certificate
+Certificate
 const privateKey = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/privkey.pem', 'utf8');
 const certificate = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/cert.pem', 'utf8');
 const ca = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/chain.pem', 'utf8');
@@ -40,17 +40,17 @@ app.use(bodyParser.json());
       console.log(msg);
       io.emit('quiz',msg);
     });
+    socket.on('screen.change', function(msg){
+      console.log(msg);
+      io.emit('screen.change',msg);
+    });
 	});
 
 
 // app.listen(port);
 // http.listen(port, function(){
-  // console.log('listening on *:'+port);
+//   console.log('listening on *:'+port);
 // });
-// console.log('Api Started')
-
-
-
 https.listen(port, () => {
-  console.log('HTTPS Server running on port 443');
+  console.log('HTTPS Server running on port '+port);
 });

@@ -12,7 +12,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ url('css/bootstrap.min.css') }}">
 </head>
-<body style="position: relative;background-image: url({{ asset('img/BACKGROUND.png') }});background-size: 100%;min-height: 100% !important;">
+<body style="display:none;position: relative;background-image: url({{ asset('img/BACKGROUND.png') }});background-size: 100%;min-height: 100% !important;">
     <div id="app">
         <main class="py-4">
             @yield('content')
@@ -33,19 +33,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 @yield('footer')
 <script type="text/javascript">
-    /*
-    $(document).ready(function() {
-    var _originalSize = $(window).width() + $(window).height()
-    $(window).resize(function() {
-        if ($(window).width() + $(window).height() != _originalSize) {
-            console.log("keyboard active");
-            $(".footer").removeClass("fixed");
-        } else {
-            console.log("keyboard closed");
-            $(".footer").addClass("fixed");
-        }
-    });
-});
-*/
+$("body").fadeIn(1000);
 </script>
 </html>

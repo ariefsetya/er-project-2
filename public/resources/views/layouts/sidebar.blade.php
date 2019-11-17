@@ -58,6 +58,18 @@
           </div>
         </div>
       </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTampilan" aria-expanded="true" aria-controls="collapseTampilan">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Tampilan</span>
+        </a>
+        <div id="collapseTampilan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{{ route('screen') }}">Layar</a>
+          </div>
+        </div>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">

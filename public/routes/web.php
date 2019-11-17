@@ -24,10 +24,11 @@ Route::get('/removeRedirectToHome',function()
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/quiz_join/{id}','HomeController@quiz_join')->name('quiz_join');
+Route::get('/polling_question/{id?}','HomeController@polling_question')->name('polling_question');
 Route::get('/polling_response/{id}','HomeController@polling_response')->name('polling_response');
 Route::get('/polling_response/{question_id?}/{answer_id?}','HomeController@select_polling_response')->name('select_polling_response');
 Route::get('/set_winner/{response_id?}/{invitation_id?}','HomeController@set_winner')->name('set_winner');
-Route::get('/quiz_result/{polling_id}','HomeController@quiz_result')->name('quiz_result');
+Route::get('/quiz_result/{polling_id?}','HomeController@quiz_result')->name('quiz_result');
 Route::get('/quiz_result_data/{polling_id}','HomeController@quiz_result_data')->name('quiz_result_data');
 
 Route::post('/join_quiz/{id}', 'HomeController@join_quiz')->name('join_quiz');
@@ -52,9 +53,10 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::resource('event_detail','EventDetailController');
     Route::resource('invitation','InvitationController');
     Route::resource('polling','PollingController');
-    Route::get('/polling/{polling_id}/{question_id}','PollingController@detail')->name('polling.detail');
+    Route::get('/polling/{polling_id?}/{question_id?}','PollingController@detail')->name('polling.detail');
     Route::resource('polling_answer','PollingAnswerController');
     Route::resource('polling_question','PollingQuestionController');
+    Route::get('/screen','HomeController@screen')->name('screen');
 });
 
 Route::prefix('products')->group(function () {

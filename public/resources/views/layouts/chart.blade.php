@@ -21,19 +21,19 @@
 
 </head>
 
-<body id="page-top">
+<body  style="display:none;position: relative;background-image: url({{ asset('img/BACKGROUND.png') }});background-size: 100%;min-height: 100% !important;">
 
   <!-- Page Wrapper -->
-  <div id="wrapper">
+  <div>
 
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div>
 
       <!-- Main Content -->
-      <div id="content">
+      <div>
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div>
           @yield('content')
         </div>
         <!-- /.container-fluid -->
@@ -62,5 +62,8 @@
 
   @yield('footer')
 </body>
+<script type="text/javascript">
+  $("body").fadeIn();
+</script>
 
 </html>
