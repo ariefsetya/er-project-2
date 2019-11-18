@@ -51,7 +51,6 @@
   }
 
   #myDiv {
-    display: none;
     text-align: center;
   }
 </style>
