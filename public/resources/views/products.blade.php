@@ -4,7 +4,7 @@
 <style type="text/css">
   /* Center the loader */
   .loader {
-    position: absolute;
+    display: block;
     left: 50%;
     top: 50%;
     z-index: 1;
@@ -59,7 +59,7 @@
   <div class="col-md-12" id="layout_img_1" style="display:none">
     <img class="img-fluid" id="image1" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
   </div>
-  <div class="loader" id="loader1"></div>
+  <div class="loader" id="loader2"></div>
   <div class="col-md-12" id="layout_img_2" style="display:none">
     <img class="img-fluid" id="image2" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png')}}">
   </div>
