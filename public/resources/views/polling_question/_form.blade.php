@@ -66,7 +66,7 @@
   <script type="text/javascript">
     function adddata() {
       // $("div.answer_data").clone().appendTo("#answer_lists");
-      $("#answer_lists").append('<div class="input-group mb-3 answer_data"><input type="text" class="form-control" required name="answer[]" placeholder="Jawaban" value=""><div class="input-group-append"><span class="input-group-text" onclick="adddata()"><i class="fa fa-plus"></i></span><span class="input-group-text" onclick="cleardata(this)"><i class="fa fa-minus"></i></span></div></div>');
+      $("#answer_lists").append('<div class="input-group mb-3 answer_data"><input type="text" class="form-control" required name="answer[]" placeholder="Jawaban" value=""><select type="text" class="form-control" name="is_correct[]"><option value="1">Jawaban Benar</option><option value="0">Jawaban Salah</option></select><div class="input-group-append"><span class="input-group-text" onclick="adddata()"><i class="fa fa-plus"></i></span><span class="input-group-text" onclick="cleardata(this)"><i class="fa fa-minus"></i></span></div></div>');
     }
     function cleardata(e) {
       $(e).parent().parent().remove();
