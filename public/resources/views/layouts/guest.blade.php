@@ -24,11 +24,6 @@
         </div>
 </body>
 
-<script type="text/javascript">
-document.addEventListener("DOMContentLoaded", function(event) {
-  console.log("DOM fully loaded and parsed");
-});
-</script>
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 @yield('footer')
