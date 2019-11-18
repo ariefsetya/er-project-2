@@ -56,7 +56,7 @@
   }
 </style>
 
-<div class="col-md-4 animate-bottom" id="myDiv" style="margin:0 auto;display: none;">
+<div class="col-md-4 animate-bottom" id="myDiv" style="margin:0 auto;">
     <div class="">
       <img class="mb-4 text-center lazy" data-src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
     </div>
