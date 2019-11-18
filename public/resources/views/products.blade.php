@@ -5,12 +5,10 @@
   /* Center the loader */
   .loader {
     display: block;
-    left: 50%;
-    top: 50%;
     z-index: 1;
     width: 150px;
     height: 150px;
-    margin: -75px 0 0 -75px;
+    margin: 20px auto 20px;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #3498db;
