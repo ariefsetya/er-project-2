@@ -35,7 +35,7 @@
 			  		<div class="col-md-12"><h2><strong>{{\App\EventDetail::where('name','invitation_total')->first()->content}}</strong></h2></div>
 			  	</div>
 			  	<div class="col-md-6 text-center">
-			  		<div class="col-md-12">TAMU SCAN</div>
+			  		<div class="col-md-12">TAMU SCAN PRODUK</div>
 			  		<div class="col-md-12"><h2><strong>{{sizeof(\App\Presence::where('product_id','>',0)->groupBy('uuid')->get())}}</strong></h2></div>
 			  	</div>
 			  </div>

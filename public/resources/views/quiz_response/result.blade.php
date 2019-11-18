@@ -23,9 +23,9 @@
 @endsection
 
 @section('footer')
-<script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="{{url('')}}:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  var socket = io("http://localhost:3000");
+  var socket = io("{{url('')}}:3000");
   get_winner();
   socket.on('quiz',function(msg) {
       get_winner();

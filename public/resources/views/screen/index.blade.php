@@ -5,6 +5,7 @@
     <h1 class="text-center">Tampilan Layar</h1>
 	 <hr>
    <select id="screen" class="form-control form-control-lg">
+      <option value="">Pilih Halaman</option>
      @foreach($result as $key => $value)
       <option value="polling:{{$value['polling']->polling_type_id.'-'.$value['polling']->id.'-'.sizeof($value['question']).'-'.$value['question'][0]->id}}">{{$value['polling']->name}}</option>
      @endforeach
@@ -14,6 +15,10 @@
    <div id="question_layout" style="display: none;">
      <select id="question_id"></select>
    </div>
+   <hr>
+
+     <span class="btn btn-block btn-primary" onclick="openPage()">Buka di Tab Baru</span>
+     <span class="btn btn-block btn-primary" onclick="movePage()">Pindah Halaman</span>
   <br>
 </div>
 
@@ -21,9 +26,10 @@
 @endsection
 
 @section('footer')
-<script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="{{url('')}}:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  var socket = io("http://localhost:3000");
+  var socket = io("{{url('')}}:3000");
+  var url = '';
 
   $("#screen").on('change',function() {
     var screen = $("#screen").val().split(':');
@@ -31,7 +37,7 @@
       var polling = screen[1].split('-');
       if(polling[0]==1){ //polling
         if(polling[2]==1){
-          socket.emit('screen.change','{{route('polling.detail')}}/'+polling[1]+'/'+polling[3]);
+          url = '{{route('polling.detail')}}/'+polling[1]+'/'+polling[3];
         }else{
           $.ajax({
             url: "{{route('polling_question')}}/"+polling[1], 
@@ -44,7 +50,7 @@
               }
               if(polling_question>0){
                 $("#question_id").on('change',function() {
-                  socket.emit('screen.change','{{route('polling.detail')}}/'+polling[1]+'/'+$("#question_id").val());
+                  url = '{{route('polling.detail')}}/'+polling[1]+'/'+$("#question_id").val();
                 });
               }
             }
@@ -53,13 +59,20 @@
       }else if(polling[0]==2){ //question
         alert('belum ada');
       }else if(polling[0]==3){ //quiz
-        socket.emit('screen.change','{{route('quiz_result')}}/'+polling[1]);
+        url = '{{route('quiz_result')}}/'+polling[1];
       }
 
     }else{
       alert('belum ada');
     }
   });
+
+  function openPage() {
+    window.open(url);
+  }
+  function movePage() {
+    socket.emit('screen.change',url);
+  }
 
 </script>
 @endsection
