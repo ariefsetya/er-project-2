@@ -245,6 +245,12 @@ class HomeController extends Controller
 
         return view('product.report')->with($data);
     }
+    public function product_chart($id)
+    {
+        $data['summary'] = ProductResponse::select(DB::raw('product_id, coalesce(sum(case when response_id=1 then 1 end),0) as yes,coalesce(sum(case when response_id=0 then 1 end),0) as no'))->with(['product'])->groupBy('product_id')->where('product_id',$id)->first();
+
+        return view('product.chart')->with($data);
+    }
     public function product_export_excel()
     {
         return Excel::download(new ProductExport, 'laporan_produk.xlsx');
