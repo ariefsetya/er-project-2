@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 
 @section('content')
-<div id="loader"></div>
+<div id="lader"></div>
 <style type="text/css">
   /* Center the loader */
   #loader {
@@ -58,25 +58,25 @@
 
 <div class="col-md-4 animate-bottom" id="myDiv" style="margin:0 auto;display: none;">
     <div class="">
-      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
+      <img class="mb-4 text-center lazy" data-src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
     </div>
 	@if(File::exists('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png') and File::exists('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png'))
   <div class="col-md-12">
-    <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
+    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
   </div>
   <div class="col-md-12">
-    <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png')}}">
+    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png')}}">
   </div>
   @elseif(File::exists('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-1.png') and File::exists('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-2.png'))
   <div class="col-md-12">
-    <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-1.png')}}">
+    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-1.png')}}">
   </div>
   <div class="col-md-12">
-    <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-2.png')}}">
+    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-2.png')}}">
   </div>
   @else
   <div class="col-md-12">
-    <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
+    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
   </div>
   @endif
   <hr>
@@ -104,10 +104,6 @@
 @section('footer')
 	@if(!Session::has($code))
 		<script type="text/javascript">
-      $(window).on('load',function() {
-        $("#loader").fadeOut();
-        $("#myDiv").fadeIn();
-      });
 			function selectresponse(response_id) {
 				$.ajax({
 				  	url: "{{route('response_product')}}/"+'{{$code}}'+'/'+response_id, 
@@ -119,5 +115,17 @@
 				});
 			}
 		</script>
-	@endif
+  @endif
+  <script src="{{ asset('js/lazyload.min.js') }}"></script>
+  <script type="text/javascript">
+      $(window).on('load',function() {
+        // $("#loader").fadeOut();
+        // $("#myDiv").fadeIn();
+      });
+
+
+      var ll = new LazyLoad({
+        elements_selector: ".lazy"
+      });
+  </script>
 @endsection
