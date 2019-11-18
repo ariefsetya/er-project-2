@@ -1,10 +1,9 @@
 @extends('layouts.guest')
 
 @section('content')
-<div id="lader"></div>
 <style type="text/css">
   /* Center the loader */
-  #loader {
+  .loader {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -49,33 +48,34 @@
     from{ bottom:-100px; opacity:0 } 
     to{ bottom:0; opacity:1 }
   }
-
-  #myDiv {
-    text-align: center;
-  }
 </style>
 
 <div class="col-md-4 animate-bottom" id="myDiv" style="margin:0 auto;">
-    <div class="">
-      <img class="mb-4 text-center lazy" data-src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
-    </div>
-	@if(File::exists('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png') and File::exists('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png'))
-  <div class="col-md-12">
-    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
+  <div class="">
+    <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
   </div>
-  <div class="col-md-12">
-    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png')}}">
+	@if(File::exists('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png') and File::exists('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png'))
+  <div class="loader" id="loader1"></div>
+  <div class="col-md-12" id="layout_img_1" style="display:none">
+    <img class="img-fluid" id="image1" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
+  </div>
+  <div class="loader" id="loader1"></div>
+  <div class="col-md-12" id="layout_img_2" style="display:none">
+    <img class="img-fluid" id="image2" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/FEATURES.png')}}">
   </div>
   @elseif(File::exists('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-1.png') and File::exists('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-2.png'))
-  <div class="col-md-12">
-    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-1.png')}}">
+  <div class="loader" id="loader1"></div>
+  <div class="col-md-12" id="layout_img_1" style="display:none">
+    <img class="img-fluid" id="image1" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-1.png')}}">
   </div>
-  <div class="col-md-12">
-    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-2.png')}}">
+  <div class="loader" id="loader2"></div>
+  <div class="col-md-12" id="layout_img_2" style="display:none">
+    <img class="img-fluid" id="image2" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'-2.png')}}">
   </div>
   @else
-  <div class="col-md-12">
-    <img class="lazy img-fluid" data-src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
+  <div class="loader" id="loader1"></div>
+  <div class="col-md-12" id="layout_img_1" style="display:none">
+    <img class="img-fluid" id="image1" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'/'.$code.'.png')}}">
   </div>
   @endif
   <hr>
@@ -115,55 +115,14 @@
 			}
 		</script>
   @endif
-  <script src="{{ asset('js/lazyload.min.js') }}"></script>
   <script type="text/javascript">
-      $(window).on('load',function() {
-        // $("#loader").fadeOut();
-        // $("#myDiv").fadeIn();
+      $('#image1').on('load', function(){
+        $('#loader1').hide();
+        $("#layout_img_1").fadeIn();
       });
-
-
-      
-      (function() {
-        function logElementEvent(eventName, element) {
-          console.log(
-            Date.now(),
-            eventName,
-            element.getAttribute("data-src")
-          );
-        }
-
-        var callback_enter = function(element) {
-          logElementEvent("🔑 ENTERED", element);
-        };
-        var callback_exit = function(element) {
-          logElementEvent("🚪 EXITED", element);
-        };
-        var callback_reveal = function(element) {
-          logElementEvent("👁️ REVEALED", element);
-        };
-        var callback_loaded = function(element) {
-          logElementEvent("👍 LOADED", element);
-        };
-        var callback_error = function(element) {
-          logElementEvent("💀 ERROR", element);
-          element.src =
-            "https://via.placeholder.com/440x560/?text=Error+Placeholder";
-        };
-        var callback_finish = function() {
-          logElementEvent("✔️ FINISHED", document.documentElement);
-        };
-
-        var ll = new LazyLoad({
-          elements_selector: ".lazy",
-          // Assign the callbacks defined above
-          callback_enter: callback_enter,
-          callback_exit: callback_exit,
-          callback_reveal: callback_reveal,
-          callback_loaded: callback_loaded,
-          callback_error: callback_error,
-          callback_finish: callback_finish
-        });
-      })();
+      $('#image2').on('load', function(){
+        $('#loader2').hide();
+        $("#layout_img_2").fadeIn();
+      });
   </script>
 @endsection

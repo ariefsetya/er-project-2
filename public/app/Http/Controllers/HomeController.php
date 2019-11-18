@@ -232,6 +232,7 @@ class HomeController extends Controller
         $arr = [];
         foreach ($prores as $key) {
             $arr[] = [
+                'id'=>$key->product->id,
                 'code'=>$key->product->code,
                 'yes'=>$key->yes,
                 'no'=>$key->no,

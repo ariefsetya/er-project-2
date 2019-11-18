@@ -7,10 +7,12 @@
     <table class="table for_datatables">
     	<thead>
     		<tr>
-	    		<th>Kode</th>
-	    		<th>Suka</th>
-                <th>Tidak Suka</th>
-                <th>Kunjungan</th>
+	    		<th>Code</th>
+	    		<th>Yes</th>
+                <th>No</th>
+                <th>Abstain</th>
+                <th>Visitor</th>
+                <th>Action</th>
 	    	</tr>
     	</thead>
     	<tbody>
@@ -19,7 +21,9 @@
     				<td>{{$key['code']}}</td>
                     <td>{{$key['yes']}}</td>
     				<td>{{$key['no']}}</td>
+                    <td>{{$key['visit']-($key['yes']+$key['no'])}}</td>
                     <td>{{$key['visit']}}</td>
+                    <td><a href="{{route('product.chart',[$key->id])}}" class="btn btn-primary">Chart</a></td>
     			</tr>
     		@endforeach
     	</tbody>

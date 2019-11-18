@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
+    Route::get('/product/chart/{id}','HomeController@product_chart')->name('product.chart');
     Route::get('/product/report','HomeController@product_report')->name('product.report');
     Route::get('/product/report/excel','HomeController@product_export_excel')->name('product.export_excel');
     Route::get('/presence/report','InvitationController@report')->name('presence.report');
