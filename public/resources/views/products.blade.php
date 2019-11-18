@@ -78,6 +78,7 @@
   @endif
   <hr>
 
+  <div style="display: none;" id="layout_vote">
   @if(!Session::has($code))
   <div id="vote" class="text-center">
   <h3>Do you like this product?</h3>
@@ -95,6 +96,7 @@
   <hr>
   <br>
   @endif
+  </div>
 </div>
 @endsection
 
@@ -117,6 +119,7 @@
       $('#image1').on('load', function(){
         $('#loader1').hide();
         $("#layout_img_1").fadeIn();
+        $("#layout_vote").fadeIn();
       });
       $('#image2').on('load', function(){
         $('#loader2').hide();
