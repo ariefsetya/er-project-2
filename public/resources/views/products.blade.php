@@ -60,7 +60,14 @@
     <div class="">
       <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
     </div>
-	@if(File::exists('img/PRODUCTS/'.$type.'/'.$code.'-1.png') and File::exists('img/PRODUCTS/'.$type.'/'.$code.'-2.png'))
+	@if(File::exists('img/PRODUCTS/'.$type.'/'.$code.'.png') and File::exists('img/PRODUCTS/'.$type.'/FEATURES.png'))
+  <div class="col-md-12">
+    <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'.png')}}">
+  </div>
+  <div class="col-md-12">
+    <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/FEATURES.png')}}">
+  </div>
+  @elseif(File::exists('img/PRODUCTS/'.$type.'/'.$code.'-1.png') and File::exists('img/PRODUCTS/'.$type.'/'.$code.'-2.png'))
   <div class="col-md-12">
     <img class="img-fluid" src="{{asset('img/PRODUCTS/'.$type.'/'.$code.'-1.png')}}">
   </div>
