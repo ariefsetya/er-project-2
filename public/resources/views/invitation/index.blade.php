@@ -3,7 +3,11 @@
 @section('content')
 <div class="">
     <h2>Data Tamu
-    <a class="btn btn-primary float-right" href="{{route('invitation.create')}}">Tambah</a></h2>
+        <div class="float-right">
+    <a class="btn btn-primary" href="{{route('invitation.create')}}">Tambah</a>
+    <a class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin me-reset data?')" href="{{route('invitation.reset')}}">Reset</a>
+    </div>
+</h2>
     <table class="table for_datatables">
     	<thead>
     		<tr>

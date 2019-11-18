@@ -49,6 +49,7 @@ Route::middleware(['auth','admin'])->prefix('admin')->group(function () {
     Route::get('/presence/report','InvitationController@report')->name('presence.report');
     Route::get('/presence/export/excel', 'InvitationController@export_excel')->name('invitation.export_excel');
     Route::get('/invitation/{id}/clear','InvitationController@clear')->name('invitation.clear');
+    Route::get('/invitation/reset','InvitationController@reset')->name('invitation.reset');
     Route::get('/polling/report','PollingController@report')->name('polling.report');
     Route::get('/','HomeController@admin')->name('admin');
     Route::resource('event_detail','EventDetailController');

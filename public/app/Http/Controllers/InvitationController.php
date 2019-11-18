@@ -68,4 +68,10 @@ class InvitationController extends Controller
 
         return redirect()->route('invitation.index');
     }
+    public function reset()
+    {
+        Invitation::where('id','>','1')->delete();
+
+        return redirect()->route('invitation.index');
+    }
 }
