@@ -71,6 +71,10 @@ class InvitationController extends Controller
     public function reset()
     {
         Invitation::where('id','>','1')->delete();
+        Presence::truncate();
+        PollingParticipant::truncate();
+        PollingResponse::truncate();
+        ProductResponse::truncate();
 
         return redirect()->route('invitation.index');
     }
