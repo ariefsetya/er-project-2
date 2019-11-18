@@ -12,9 +12,9 @@
 @endsection
 
 @section('footer')
-<script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
+<script type="text/javascript" src="{{url('')}}:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  var socket = io("http://localhost:3000");
+  var socket = io("{{url('')}}:3000");
 
 	  socket.on('screen.change',function(msg) {
 	    $("body").fadeOut(500);
