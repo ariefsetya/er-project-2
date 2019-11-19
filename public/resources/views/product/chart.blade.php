@@ -45,14 +45,21 @@
 	var myChart = new Chart(ctx, {
 	    type: 'pie',
 	    data: {
-	    	labels:['Ya','Tidak'],
+	    	labels:[''],
 	        datasets: [
 
 	        {
-	        	label:'Vote',
-	            data: [ '{{$summary->yes}}','{{$summary->no}}'  ],
-	            backgroundColor:[bgColor[0],bgColor[1]],
-	            borderColor:[bdColor[0],bdColor[1]],
+	        	label:'Yes',
+	            data: [ '{{$summary->yes}}'  ],
+	            backgroundColor:[bgColor[0]],
+	            borderColor:[bdColor[0]],
+	            borderWidth: 1
+	        },
+	        {
+	        	label:'No',
+	            data: [ '{{$summary->no}}'  ],
+	            backgroundColor:[bgColor[1]],
+	            borderColor:[bdColor[1]],
 	            borderWidth: 1
 	        },
 	        
@@ -61,7 +68,7 @@
 	    },
 	    options: {
 		    legend: {
-		        display: false,
+		        display: true,
 		        labels:{
 		        	fontSize:25
 		        },
