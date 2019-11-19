@@ -18,12 +18,12 @@
     	<tbody>
     		@foreach($summary as $key)
     			<tr>
-    				<td>{{$key['code']}}</td>
-                    <td>{{$key['yes']}}</td>
-    				<td>{{$key['no']}}</td>
-                    <td>{{$key['visit']-($key['yes']+$key['no'])}}</td>
-                    <td>{{$key['visit']}}</td>
-                    <td><a href="{{route('product.chart',[$key['id']])}}" class="btn btn-primary">Chart</a></td>
+    				<td>{{$key->product->code}}</td>
+                    <td>{{$key->yes}}</td>
+    				<td>{{$key->no}}</td>
+                    <td>{{sizeof(Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())-($key->yes+$key->no)}}</td>
+                    <td>{{sizeof(Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())}}</td>
+                    <td><a href="{{route('product.chart',[$key->id])}}" class="btn btn-primary">Chart</a></td>
     			</tr>
     		@endforeach
     	</tbody>

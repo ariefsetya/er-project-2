@@ -8,6 +8,10 @@ class PollingResponse extends Model
 {
     protected $table = "tr_polling_response";
     
+    public function invitation()
+    {
+        return $this->belongsTo('App\Invitation')->withDefault();
+    }
     public function polling()
     {
         return $this->belongsTo('App\Polling')->withDefault();

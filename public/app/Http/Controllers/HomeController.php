@@ -28,6 +28,12 @@ class HomeController extends Controller
         $data['polling_question'] = PollingQuestion::where('polling_id',$id)->get();
         return response()->json($data);
     }
+    public function quiz_report($id)
+    {
+        $data['polling'] = Polling::find($id);
+        $data['polling_response'] = PollingResponse::with(['invitation'])->select(DB::raw('invitation_id, group_concat(polling_response_id) as answer, '))->where('polling_id',$id)->get();
+        return response()->json($data);
+    }
     public function quiz_result($id)
     {
         $data['polling'] = Polling::find($id);
@@ -228,20 +234,7 @@ class HomeController extends Controller
     }
     public function product_report()
     {
-        $prores = ProductResponse::select(DB::raw('product_id, coalesce(sum(case when response_id=1 then 1 end),0) as yes,coalesce(sum(case when response_id=0 then 1 end),0) as no'))->with(['product'])->groupBy('product_id')->get();
-        $arr = [];
-        foreach ($prores as $key) {
-            $arr[] = [
-                'id'=>$key->product->id,
-                'code'=>$key->product->code,
-                'yes'=>$key->yes,
-                'no'=>$key->no,
-                'visit'=>Presence::where('product_id',$key->product_id)->count()
-            ];
-        }
-
-        $data['summary'] = collect($arr);
-
+        $data['summary'] = ProductResponse::select(DB::raw('product_id, sum(case when response_id=1 then 1 end) as yes, sum(case when response_id=0 then 1 end) as no'))->with(['product'])->groupBy('product_id')->get();
 
         return view('product.report')->with($data);
     }
