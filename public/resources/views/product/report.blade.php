@@ -23,7 +23,7 @@
     				<td>{{$key['no']}}</td>
                     <td>{{$key['visit']-($key['yes']+$key['no'])}}</td>
                     <td>{{$key['visit']}}</td>
-                    <td><a href="{{route('product.chart',[$key->id])}}" class="btn btn-primary">Chart</a></td>
+                    <td><a href="{{route('product.chart',[$key['id']])}}" class="btn btn-primary">Chart</a></td>
     			</tr>
     		@endforeach
     	</tbody>
