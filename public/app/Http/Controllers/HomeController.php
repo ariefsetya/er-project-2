@@ -15,6 +15,7 @@ use Auth;
 use DB;
 use Validator;
 use App\Exports\ProductExport;
+use App\Exports\QuizExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
@@ -31,8 +32,15 @@ class HomeController extends Controller
     public function quiz_report($id)
     {
         $data['polling'] = Polling::find($id);
-        $data['polling_response'] = PollingResponse::with(['invitation'])->select(DB::raw('invitation_id, group_concat(polling_response_id) as answer, '))->where('polling_id',$id)->get();
-        return response()->json($data);
+        $data['polling_participant'] = PollingParticipant::with(['invitation'])->where('polling_id',$id)->get();
+        // dd($data);
+        return view('quiz_response.report')->with($data);
+    }
+    public function quiz_export_excel($id)
+    {
+        $polling = Polling::find($id);
+        $exporter = app()->makeWith(QuizExport::class, compact('id')); 
+        return Excel::download($exporter,'laporan_polling_'.$polling->name.'.xlsx');
     }
     public function quiz_result($id)
     {
