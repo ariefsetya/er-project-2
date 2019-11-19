@@ -16,7 +16,7 @@
 			  		<div class="col-md-12"><h2><strong>{{\App\EventDetail::where('name','invitation_total')->first()->content}}</strong></h2></div>
 			  	</div>
 			  	<div class="col-md-6 text-center">
-			  		<div class="col-md-12">TAMU CHECK-IN</div>
+			  		<div class="col-md-12">TAMU IKUT QUIZ</div>
 			  		<div class="col-md-12"><h2><strong>{{\App\Invitation::count()}}</strong></h2></div>
 			  	</div>
 			  </div>

@@ -21,8 +21,8 @@
     				<td>{{$key->product->code}}</td>
                     <td>{{$key->yes}}</td>
     				<td>{{$key->no}}</td>
-                    <td>{{sizeof(Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())-($key->yes+$key->no)}}</td>
-                    <td>{{sizeof(Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())}}</td>
+                    <td>{{sizeof(\App\Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())-($key->yes+$key->no)}}</td>
+                    <td>{{sizeof(\App\Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())}}</td>
                     <td><a href="{{route('product.chart',[$key->id])}}" class="btn btn-primary">Chart</a></td>
     			</tr>
     		@endforeach
