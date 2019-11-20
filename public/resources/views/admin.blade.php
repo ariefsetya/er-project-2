@@ -7,7 +7,7 @@
 	<div class="col-md-6">
 		<div class="card mb-3">
 		  <div class="card-header text-white bg-primary text-center">
-		  	<h1>{{number_format((\App\Invitation::count()/\App\EventDetail::where('name','invitation_total')->first()->content)*100,2)}}%</h1>
+		  	<h1>{{number_format(((\App\Invitation::count()-1)/\App\EventDetail::where('name','invitation_total')->first()->content)*100,2)}}%</h1>
 		  </div>
 		  <div class="card-body">
 			  <div class="row">
@@ -17,7 +17,7 @@
 			  	</div>
 			  	<div class="col-md-6 text-center">
 			  		<div class="col-md-12">TAMU IKUT QUIZ</div>
-			  		<div class="col-md-12"><h2><strong>{{\App\Invitation::count()}}</strong></h2></div>
+			  		<div class="col-md-12"><h2><strong>{{(\App\Invitation::count()-1)}}</strong></h2></div>
 			  	</div>
 			  </div>
 		  </div>

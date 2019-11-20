@@ -22,6 +22,7 @@ class ProductExport implements FromCollection
     			'Yes',
     			'No',
                 'Abstain',
+                'Vote',
     			'Visitor',
     		];
 
@@ -34,6 +35,7 @@ class ProductExport implements FromCollection
                 'yes'=>$yes,
                 'no'=>$no,
                 'abstain'=>($visitor-($yes+$no)),
+                'vote'=>$yes+$no,
                 'visit'=>$visitor
             ];
         }
