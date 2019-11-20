@@ -31,19 +31,19 @@
 @endsection
 
 @section('footer')
-<!-- <script type="text/javascript" src="{{url('')}}:3000/socket.io/socket.io.js"></script> -->
+<script type="text/javascript" src="{{url('')}}:3000/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  // var socket = io("{{url('')}}:3000");
+  var socket = io("{{url('')}}:3000");
   get_winner();
-  // socket.on('quiz',function(msg) {
-  //     get_winner();
-  // });
-  // socket.on('screen.change',function(msg) {
-  //   $("body").fadeOut(500);
-  //   setTimeout(function () {
-  //     window.location = msg
-  //   },500);
-  // });
+  socket.on('quiz',function(msg) {
+      get_winner();
+  });
+  socket.on('screen.change',function(msg) {
+    $("body").fadeOut(500);
+    setTimeout(function () {
+      window.location = msg
+    },500);
+  });
 
   function get_winner(argument) {
     $.ajax({
