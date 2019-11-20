@@ -45,7 +45,7 @@
 	var myChart = new Chart(ctx, {
 	    type: 'pie',
 	    data: {
-	    	labels:['Yes', 'No'],
+	    	labels:['Yes ({{$summary->yes}})', 'No ({{$summary->no}})'],
 	        datasets: [
 
 	        {
@@ -59,38 +59,17 @@
 	        ]
 	    },
 	    options: {
-		    
 		    legend: {
 		        display: true,
 		        labels:{
-		        	fontSize:25,
-		        	
-			      	generateLabels: function(chart){
-			          var data = chart.data;
-			          var legends = Array.isArray(data.datasets) ? data.datasets.map(function(dataset, i) {
-			          	console.log(dataset);
-			            return {
-			              text: dataset.label+" ("+dataset.data+")",
-			              fillStyle: (!Array.isArray(dataset.backgroundColor) ? dataset.backgroundColor : dataset.backgroundColor[0]),
-			              hidden: !chart.isDatasetVisible(i),
-			              lineCap: dataset.borderCapStyle,
-			              lineDash: dataset.borderDash,
-			              lineDashOffset: dataset.borderDashOffset,
-			              lineJoin: dataset.borderJoinStyle,
-			              lineWidth: dataset.borderWidth,
-			              strokeStyle: dataset.borderColor,
-			              pointStyle: dataset.pointStyle,
-
-			              // Below is extra data used for toggling the datasets
-			              datasetIndex: i
-			            };
-			          }, this) : [];
-			          return legends;
-			        }
+		        	fontSize:25
 		        },
 		        align:'center',
 		        position:'right'
 		    },
+		    tooltips: {
+		         enabled: false
+		    }
 	    }
 	});
 	</script>
