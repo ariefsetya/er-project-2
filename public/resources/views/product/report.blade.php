@@ -17,15 +17,20 @@
     	</thead>
     	<tbody>
     		@foreach($summary as $key)
+            <?php $yes = sizeof(\App\ProductResponse::where('product_id',$key->id)->where('response_id',1)->get());
+            $no = sizeof(\App\ProductResponse::where('product_id',$key->id)->where('response_id',0)->get());
+            $visitor = sizeof(\App\Presence::where('product_id',$key->id)->groupBy('uuid')->get()); ?>
+            @if($visitor > 0)
     			<tr>
-    				<td>{{$key->product->code}}</td>
-                    <td>{{$key->yes}}</td>
-    				<td>{{$key->no}}</td>
-                    <td>{{sizeof(\App\Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())-($key->yes+$key->no)}}</td>
-                    <td>{{sizeof(\App\Presence::where('product_id',$key->product->id)->groupBy('uuid')->get())}}</td>
+    				<td>{{$key->code}}</td>
+                    <td>{{$yes}}</td>
+                    <td>{{$no}}</td>
+                    <td>{{$visitor-($yes+$no)}}</td>
+                    <td>{{$visitor}}</td>
                     <td><a href="{{route('product.chart',[$key->id])}}" class="btn btn-primary">Chart</a></td>
     			</tr>
-    		@endforeach
+    		@endif
+            @endforeach
     	</tbody>
     </table>
 </div>

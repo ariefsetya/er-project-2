@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use \App\ProductResponse;
+use \App\Product;
 use \App\Presence;
 use DB;
 
@@ -14,21 +15,26 @@ class ProductExport implements FromCollection
     */
     public function collection()
     {
-    	$data = ProductResponse::select(DB::raw('product_id, coalesce(sum(case when response_id=1 then 1 end),0) as yes,coalesce(sum(case when response_id=0 then 1 end),0) as no'))->with(['product'])->groupBy('product_id')->get();
+    	$data = Product::all();
 
     	$arr[] = [
-    			'Kode',
-    			'Suka',
-    			'Tidak Suka',
-    			'Kunjungan',
+    			'Code',
+    			'Yes',
+    			'No',
+                'Abstain',
+    			'Visitor',
     		];
 
         foreach ($data as $key) {
+            $yes = sizeof(\App\ProductResponse::where('product_id',$key->id)->where('response_id',1)->get());
+            $no = sizeof(\App\ProductResponse::where('product_id',$key->id)->where('response_id',0)->get());
+            $visitor = sizeof(\App\Presence::where('product_id',$key->id)->groupBy('uuid')->get());
             $arr[] = [
-                'code'=>$key->product->code,
-                'yes'=>$key->yes,
-                'no'=>$key->no,
-                'visit'=>Presence::where('product_id',$key->product_id)->count()
+                'code'=>$key->code,
+                'yes'=>$yes,
+                'no'=>$no,
+                'abstain'=>($visitor-($yes+$no)),
+                'visit'=>$visitor
             ];
         }
 

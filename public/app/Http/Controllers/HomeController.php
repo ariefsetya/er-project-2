@@ -242,7 +242,7 @@ class HomeController extends Controller
     }
     public function product_report()
     {
-        $data['summary'] = ProductResponse::groupBy('product_id')->selectRaw('*, count(response_id) as visit, coalesce(sum(case when response_id=1 then 1 end),0) as yes, coalesce(sum(case when response_id=0 then 1 end),0) as no')->with(['product'])->get();
+        $data['summary'] = Product::all();
 
         return view('product.report')->with($data);
     }

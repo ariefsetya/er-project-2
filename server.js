@@ -43,6 +43,10 @@ app.use(bodyParser.json());
       console.log(msg);
       io.emit('screen.change',msg);
     });
+    socket.on('polling.refresh', function(msg){
+      console.log(msg);
+      io.emit('polling.refresh',msg);
+    });
 	});
 
 

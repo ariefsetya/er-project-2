@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="" style="margin:0 auto;overflow: hidden;">
-    <h1 class="text-center" style="text-transform: uppercase;font-size:200px;">{{$polling->name}} Winners</h1>
+    <h1 class="text-center" style="text-transform: uppercase;font-size:120px;font-weight: bold;">{{$polling->name}} Winners</h1>
     <br>
     <br>
     <div class="row">
@@ -17,7 +17,7 @@
       ?>
     @for($i=0;$i<$polling->max_winner;$i++)
     <div id="winner_box_{{$i}}" class="text-center col-md-6" style="display: none;">
-      <h2 style="font-size:80px;text-transform: uppercase;">{!! ordinal($polling->max_winner>0?($i+1):0) !!} Winner</h2>
+      <h2 style="font-size:80px;text-transform: uppercase;font-weight: bold;">{!! ordinal($polling->max_winner>0?($i+1):0) !!} Winner</h2>
       <h3 id="name_{{$i}}" style="font-size:100px;text-transform: uppercase;"></h3>
       <h3 id="company_{{$i}}" style="font-size:120px;text-transform: uppercase;"></h3>
       <h5 id="created_at_{{$i}}" style="font-size:60px;text-transform: uppercase;"></h5>
@@ -45,7 +45,7 @@
     },500);
   });
 
-  function get_winner(argument) {
+  function get_winner() {
     $.ajax({
         url: "{{route('quiz_result_data',[$polling->id])}}", 
         dataType:'json',
