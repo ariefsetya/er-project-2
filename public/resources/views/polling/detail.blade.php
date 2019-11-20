@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
 	<br>
-    <h3 class="text-center">{{$polling->id==5?"MOST REQUESTED SONGS":$polling_question->content}}</h3>
+    <h3 class="text-center" style="color:#000000;font-weight: bold;">{{$polling->id==5?"MOST REQUESTED SONGS":$polling_question->content}}</h3>
     <hr>
 	<canvas id="myChart"></canvas>
 

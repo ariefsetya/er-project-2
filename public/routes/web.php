@@ -70,3 +70,49 @@ Route::prefix('products')->group(function () {
 	});
 });
 Route::get('/response_product/{code?}/{response?}','HomeController@response_product')->name('response_product');
+
+// Route::get('/update_chart_polling/{id}',function($id)
+// {
+
+//     $bgColor = [
+//             'rgba(255, 99, 132, 0.7)',
+//             'rgba(54, 162, 235, 0.7)',
+//             'rgba(255, 206, 86, 0.7)',
+//             'rgba(75, 192, 192, 0.7)',
+//             'rgba(153, 102, 255, 0.7)',
+//             'rgba(255, 159, 64, 0.7)'
+//         ];
+//     $bdColor = [
+//             'rgba(255, 99, 132, 1)',
+//             'rgba(54, 162, 235, 1)',
+//             'rgba(255, 206, 86, 1)',
+//             'rgba(75, 192, 192, 1)',
+//             'rgba(153, 102, 255, 1)',
+//             'rgba(255, 159, 64, 1)'
+//         ];
+
+//     \App\Polling::find($id);
+//     $data['labels'] = [''];
+//     $data['datasets'] = [];
+//     $x = 0;
+//     foreach (\App\PollingQuestion::where('polling_id',$id)->get() as $key) {
+//         foreach (\App\PollingAnswer::where('polling_question_id',$key->id)->get() as $row) {
+//             $datasets = [
+//                 'label'=>$row->content,
+//                 'data'=>[12],
+//                 'backgroundColor'=>$bgColor[$x],
+//                 'borderColor'=>$bdColor[$x],
+//                 'borderWidth'=>1
+//             ];
+//             $data['datasets'][] = $datasets;
+//             $x++;
+//             if($x==sizeof($bgColor)){
+//                 $x = 0;
+//             }
+//         }
+//     }
+//     dd($data);
+
+//     return response()->json($data,200);
+
+// });
