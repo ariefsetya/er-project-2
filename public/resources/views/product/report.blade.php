@@ -27,7 +27,7 @@
                     <td>{{$no}}</td>
                     <td>{{$visitor-($yes+$no)}}</td>
                     <td>{{$visitor}}</td>
-                    <td><a href="{{route('product.chart',[$key->id])}}" class="btn btn-primary">Chart</a></td>
+                    <td>@if($yes>0 or $no>0)<a href="{{route('product.chart',[$key->id])}}" class="btn btn-primary">Chart</a>@endif</td>
     			</tr>
     		@endif
             @endforeach
