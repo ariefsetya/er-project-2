@@ -6,6 +6,10 @@
       <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
     </div>
 	<hr>
+    Welcome,<br>
+    {{Auth::user()->name}}<br>
+    {{Auth::user()->company}}
+    <hr>
     @if(\App\EventDetail::where('name','idle')->first()->content==0)
         @foreach(\App\Polling::get() as $row)
         	@if($row->polling_type_id==3)
