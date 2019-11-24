@@ -34,5 +34,6 @@
     @else
     <h2>Please scan again later</h2>
     @endif
+    <a href="{{route('logout')}}" class="btn btn-lg btn-dark col-md-12">Logout</a>
 </div>
 @endsection
