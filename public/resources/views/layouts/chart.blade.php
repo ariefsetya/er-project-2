@@ -21,7 +21,7 @@
 
 </head>
 
-<body  style="display:none;position: relative;background-image: url({{ asset('img/BACKGROUND.png') }});background-size: 100%;min-height: 100% !important;">
+<body  style="display:none;position: relative;/*background-image: url({{ asset('img/BACKGROUND.png') }});*/background-size: 100%;min-height: 100% !important;">
 
   <!-- Page Wrapper -->
   <div>

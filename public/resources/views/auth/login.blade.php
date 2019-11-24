@@ -22,7 +22,7 @@
       <input type="number" name="phone" id="phone" class="form-control form-control-lg" placeholder="Phone Number" aria-label="Recipient's username" aria-describedby="basic-addon2">
     </div>
 
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Check In</button>
+      <button class="btn btn-lg btn-dark btn-block" type="submit">Check In</button>
     </form>
 </div>
 @endsection

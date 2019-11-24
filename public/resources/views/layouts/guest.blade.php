@@ -12,7 +12,7 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ url('css/bootstrap.min.css') }}">
 </head>
-<body style="position: relative;background-image: url({{ asset('img/BACKGROUND.png') }});background-size: 100%;min-height: 100% !important;">
+<body style="position: relative;/*background-image: url({{ asset('img/BACKGROUND.png') }});*/background-size: 100%;min-height: 100% !important;">
     <div id="app">
         <main class="py-4">
             @yield('content')

@@ -26,7 +26,7 @@
       	{{$polling->finish_message}}
       </div>
       <div class="modal-footer">
-        <a href="{{route('home')}}" class="btn btn-primary btn-block">OK</a>
+        <a href="{{route('home')}}" class="btn btn-dark btn-block">OK</a>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@
 		  	success: function(result){
 		  		$(".for_button").removeClass("disabled");
 		  		$(".for_button").removeClass("btn-secondary");
-		  		$(".for_button").addClass("btn-primary");
+		  		$(".for_button").addClass("btn-dark");
 			}
 		});
 	}
