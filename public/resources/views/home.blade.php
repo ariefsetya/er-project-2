@@ -3,12 +3,12 @@
 @section('content')
 <div class="text-center   col-md-3" style="margin:0 auto;">
     <div class="">
-      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
+      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 60%;">
     </div>
 	<hr>
-    Welcome,<br>
+    <h3>Welcome,<br>
     {{Auth::user()->name}}<br>
-    {{Auth::user()->company}}
+    {{Auth::user()->company}}</h3>
     <hr>
     @if(\App\EventDetail::where('name','idle')->first()->content==0)
         @foreach(\App\Polling::get() as $row)

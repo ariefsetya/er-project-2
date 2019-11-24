@@ -6,7 +6,7 @@
       {{csrf_field()}}
 
     <div class="">
-      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
+      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 60%;">
     </div>
       
     @if (\Session::has('message'))
