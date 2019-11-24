@@ -20,7 +20,7 @@
     </div>
    
         <div class="col-md-3 footer" style="z-index:-999999999;margin:0 auto 20px;padding: 0;position: absolute;bottom:0;left:0;right:0;">
-          <img class="text-center" src="{{ asset('img/FOOTER.png') }}" alt="" style="width: 90%;margin: 0 0 0 5%;left:50%;">
+          <!-- <img class="text-center" src="{{ asset('img/FOOTER.png') }}" alt="" style="width: 90%;margin: 0 0 0 5%;left:50%;"> -->
         </div>
 </body>
 
