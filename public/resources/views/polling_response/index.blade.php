@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="col-md-3" style="margin:0 auto;">
-    <div class="">
-      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 60%;">
+    <div class="text-center">
+      <img class="mb-4" src="{{asset('img/HEADER.png')}}" alt="" style="width: 60%;">
     </div>
     <h4>{{ $polling_question[0]->content }}</h4>
 	@foreach($polling_answer as $key)
