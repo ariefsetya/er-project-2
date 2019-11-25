@@ -6,6 +6,7 @@ use App\Polling;
 use App\PollingType;
 use App\PollingResponse;
 use App\PollingQuestion;
+use App\PollingParticipant;
 use DB;
 use Illuminate\Http\Request;
 
