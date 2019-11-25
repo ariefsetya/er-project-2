@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="">
-    <h2>Laporan Quiz
+    <h2>Laporan {{$polling->name}}
     <a class="btn btn-primary float-right" href="{{route('quiz.export_excel',[$polling->id])}}">Export</a></h2>
     <table class="table for_datatables">
     	<thead>
@@ -32,7 +32,7 @@
                     <td>{{$x}}</td>
                     <td>{{$key->created_at}}</td>
                     <td>{{$key->is_winner==1?'Menang':'Tidak Menang'}}</td>
-                    <td><a href="{{route('polling_response.reset',[$polling->id, $key->invitation->id])}}">Reset</a></td>
+                    <td><a class="btn btn-danger" href="{{route('polling_response.reset',[$polling->id, $key->invitation->id])}}">Reset</a></td>
     			</tr>
     		@endforeach
     	</tbody>
