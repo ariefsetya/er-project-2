@@ -6,7 +6,7 @@
       <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 60%;">
     </div>
 	<hr>
-    <h3>Welcome,<br>
+    <h3>{{\App\EventDetail::where('name','greeting_text')->first()->content}}<br>
     {{Auth::user()->name}}<br>
     {{Auth::user()->company}}</h3>
     <hr>
@@ -34,6 +34,8 @@
     @else
     <h2>Please scan again later</h2>
     @endif
+    @if(\App\EventDetail::where('name','logout_button_visibility')->first()->content==0)
     <a href="{{route('logout')}}" class="btn btn-lg btn-dark col-md-12">Logout</a>
+    @endif
 </div>
 @endsection

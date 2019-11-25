@@ -32,7 +32,7 @@ class CustomAuthController extends Controller
 
 			}else if($user->user_type_id==2){
 
-				if(Presence::where('invitation_id',$user->id)->exists()){
+				if(Presence::where('invitation_id',$user->id)->exists() and $user->need_login==0){
 
 					return redirect()->route('loginPage')->with(['message'=>EventDetail::whereName('already_login')->first()->content]);
 
@@ -62,9 +62,17 @@ class CustomAuthController extends Controller
     public function logout()
     {
     	if(Auth::check()){
+
+			$inv = Invitation::find(Auth::user()->id);
+			$inv->need_login = 1;
+			$inv->save();
+
 			Auth::logout();
+
 		}
+    	
     	Session::flush();
+
 		return redirect()->route('home');
     }
 }
