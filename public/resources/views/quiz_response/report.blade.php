@@ -15,6 +15,7 @@
                 <th>Total</th>
                 <th>Waktu</th>
                 <th>Status</th>
+                <th>Action</th>
 	    	</tr>
     	</thead>
     	<tbody>
@@ -31,6 +32,7 @@
                     <td>{{$x}}</td>
                     <td>{{$key->created_at}}</td>
                     <td>{{$key->is_winner==1?'Menang':'Tidak Menang'}}</td>
+                    <td><a href="{{route('polling_response.reset',[$polling->id, $key->invitation->id])}}">Reset</a></td>
     			</tr>
     		@endforeach
     	</tbody>

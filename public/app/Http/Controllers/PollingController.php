@@ -73,4 +73,10 @@ class PollingController extends Controller
         $data['polling'] = Polling::all();
         return view('polling.report')->with($data);
     }
+    public function polling_response_reset($polling_id, $invitation_id)
+    {
+        PollingResponse::where('polling_id',$polling_id)->where('invitation_id',$invitation_id)->delete();
+        PollingParticipant::where('polling_id',$polling_id)->where('invitation_id',$invitation_id)->delete();
+        return redirect()->route('quiz_report',[$polling_id]);
+    }
 }
