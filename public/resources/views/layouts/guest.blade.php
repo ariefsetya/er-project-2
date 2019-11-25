@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>AQUA JAPAN | 2019 ANNUAL DEALERS GATHERING</title>
+    <title>{{\App\EventDetail::where('name','website_title')->first()->content}}</title>
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ url('css/bootstrap.min.css') }}">
