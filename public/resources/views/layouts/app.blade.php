@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>{{Event::find(Session::get('event_id'))->name}} | Admin</title>
+  <title>{{\App\Event::find(Session::get('event_id'))->name}} | Admin</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
