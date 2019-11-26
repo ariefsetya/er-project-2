@@ -12,7 +12,7 @@
 */
 Auth::routes();
 
-Route::domain('{code}.e-guestbook.com')->group(function () {
+// Route::domain('{code}.e-guestbook.com')->group(function () {
 
     Route::get('/loginPage','CustomAuthController@loginPage')->name('loginPage');
 
@@ -72,7 +72,7 @@ Route::domain('{code}.e-guestbook.com')->group(function () {
     });
     Route::get('/response_product/{code?}/{response?}','HomeController@response_product')->name('response_product');
 
-});
+// });
 
 // Route::get('/update_chart_polling/{id}',function($id)
 // {
