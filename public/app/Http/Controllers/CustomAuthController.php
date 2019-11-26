@@ -24,7 +24,7 @@ class CustomAuthController extends Controller
 				
 				Auth::loginUsingId($user->id);
 
-				$inv = Invitation::where('event_id',Session::get('event_id'))->whereId($user->id);
+				$inv = Invitation::where('event_id',Session::get('event_id'))->whereId($user->id)->first();
 				$inv->need_login = 0;
 				$inv->save();
 				
@@ -40,7 +40,7 @@ class CustomAuthController extends Controller
 
 					Auth::loginUsingId($user->id);
 
-					$inv = Invitation::where('event_id',Session::get('event_id'))->whereId($user->id);
+					$inv = Invitation::where('event_id',Session::get('event_id'))->whereId($user->id)->first();
 					$inv->need_login = 0;
 					$inv->save();
 
@@ -63,7 +63,7 @@ class CustomAuthController extends Controller
     {
     	if(Auth::check()){
 
-			$inv = Invitation::where('event_id',Session::get('event_id'))->whereId(Auth::user()->id);
+			$inv = Invitation::where('event_id',Session::get('event_id'))->whereId(Auth::user()->id)->first();
 			$inv->need_login = 1;
 			$inv->save();
 

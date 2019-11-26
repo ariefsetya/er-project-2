@@ -33,32 +33,32 @@ class HomeController extends Controller
     }
     public function quiz_report($id)
     {
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $data['polling_participant'] = PollingParticipant::with(['invitation'])->where('event_id',Session::get('event_id'))->where('polling_id',$id)->get();
         // dd($data);
         return view('quiz_response.report')->with($data);
     }
     public function quiz_export_excel($id)
     {
-        $polling = Polling::whereId($id);
+        $polling = Polling::whereId($id)->first();
         $exporter = app()->makeWith(QuizExport::class, compact('id')); 
         return Excel::download($exporter,'laporan_polling_'.$polling->name.'.xlsx');
     }
     public function quiz_result($id)
     {
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         return view('quiz_response.result')->with($data);
     }
     public function quiz_result_data($id)
     {
-        $data['polling'] = Polling::whereId($id);
+        $data['polling'] = Polling::whereId($id)->first();
         $data['polling_participant'] = PollingParticipant::with(['invitation'])->where('event_id',Session::get('event_id'))->where('polling_id',$id)->where('is_winner',1)->orderBy('id','asc')->get();
 
         return response()->json($data,200);
     }
     public function quiz_join($id)
     {
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         return view('quiz_response.join')->with($data);
     }
     public function join_quiz(Request $r, $id)
@@ -79,7 +79,7 @@ class HomeController extends Controller
     }
     public function polling_response($id)
     {
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $data['polling_question'] = PollingQuestion::where('event_id',Session::get('event_id'))->where('polling_id',$id)->paginate(1);
         if(isset($data['polling_question'][0])){
         $data['polling_answer'] = PollingAnswer::where('event_id',Session::get('event_id'))->where('polling_question_id',$data['polling_question'][0]->id)->get();
@@ -104,7 +104,7 @@ class HomeController extends Controller
     }
     public function quiz_response($id)
     {
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $data['polling_question'] = PollingQuestion::where('event_id',Session::get('event_id'))->where('polling_id',$id)->paginate(1);
         $data['polling_answer'] = PollingAnswer::where('event_id',Session::get('event_id'))->where('polling_question_id',$data['polling_question'][0]->id)->get();
 
@@ -149,12 +149,12 @@ class HomeController extends Controller
     public function select_polling_response($polling_question_id = 0, $polling_answer_id = 0)
     {
         if($polling_question_id > 0 and $polling_answer_id > 0){
-            $polling_id = PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->polling_id;
+            $polling_id = PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->first()->polling_id;
             if(PollingResponse::where('event_id',Session::get('event_id'))->where('polling_question_id',$polling_question_id)->where('polling_id',$polling_id)->where('uuid',\Session::get('uuid'))->exists()){
                 $id = PollingResponse::where('event_id',Session::get('event_id'))->where('polling_question_id',$polling_question_id)->where('polling_id',$polling_id)->where('uuid',\Session::get('uuid'))->first()->id;
-                $data = PollingResponse::where('event_id',Session::get('event_id'))->whereId($id);
+                $data = PollingResponse::where('event_id',Session::get('event_id'))->whereId($id)->first();
                 $data->polling_answer_id = $polling_answer_id;
-                $data->answer_text = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($polling_answer_id)->content;
+                $data->answer_text = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($polling_answer_id)->first()->content;
                 $data->save();
 
                 \Session::put('polling_'.$polling_id,true);
@@ -167,7 +167,7 @@ class HomeController extends Controller
                 $data->uuid = \Session::get('uuid');
                 $data->polling_question_id = $polling_question_id;
                 $data->polling_answer_id = $polling_answer_id;
-                $data->answer_text = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($polling_answer_id)->content;
+                $data->answer_text = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($polling_answer_id)->first()->content;
                 $data->save();
 
                 \Session::put('polling_'.$polling_id,true);
@@ -179,15 +179,15 @@ class HomeController extends Controller
     public function select_quiz_response($polling_question_id = 0, $polling_answer_id = 0)
     {
         if($polling_question_id > 0 and $polling_answer_id > 0){
-            if(PollingParticipant::where('event_id',Session::get('event_id'))->where('polling_id',PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->polling_id)
+            if(PollingParticipant::where('event_id',Session::get('event_id'))->where('polling_id',PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->first()->polling_id)
                 ->where('invitation_id',Auth::user()->id)->exists()){
                 return response()->json(['message'=>'saved!','win'=>false],200);
             }else{ 
-                if(PollingResponse::where('event_id',Session::get('event_id'))->where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->polling_id)->where('invitation_id',Auth::user()->id)->exists()){
-                    $id = PollingResponse::where('event_id',Session::get('event_id'))->where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->polling_id)->where('invitation_id',Auth::user()->id)->first()->id;
-                    $data = PollingResponse::where('event_id',Session::get('event_id'))->whereId($id);
+                if(PollingResponse::where('event_id',Session::get('event_id'))->where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->first()->polling_id)->where('invitation_id',Auth::user()->id)->exists()){
+                    $id = PollingResponse::where('event_id',Session::get('event_id'))->where('polling_question_id',$polling_question_id)->where('polling_id',PollingQuestion::where('event_id',Session::get('event_id'))->whereId($polling_question_id)->first()->polling_id)->where('invitation_id',Auth::user()->id)->first()->id;
+                    $data = PollingResponse::where('event_id',Session::get('event_id'))->whereId($id)->first();
                     $data->polling_answer_id = $polling_answer_id;
-                    $data->answer_text = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($polling_answer_id)->content;
+                    $data->answer_text = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($polling_answer_id)->first()->content;
                     $data->save();
                     
                     if(PollingAnswer::where('event_id',Session::get('event_id'))->where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){
@@ -203,11 +203,11 @@ class HomeController extends Controller
                 }else{
                     $data = new PollingResponse;
                     $data->event_id = Session::get('event_id');
-                    $data->polling_id = PollingQuestion::whereId($polling_question_id)->polling_id;
+                    $data->polling_id = PollingQuestion::whereId($polling_question_id)->first()->polling_id;
                     $data->invitation_id = Auth::user()->id;
                     $data->polling_question_id = $polling_question_id;
                     $data->polling_answer_id = $polling_answer_id;
-                    $data->answer_text = PollingAnswer::whereId($polling_answer_id)->content;
+                    $data->answer_text = PollingAnswer::whereId($polling_answer_id)->first()->content;
                     $data->save();
                     
                     if(PollingAnswer::where('event_id',Session::get('event_id'))->where('is_correct',1)->where('polling_question_id',$polling_question_id)->first()->id==$polling_answer_id){

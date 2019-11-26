@@ -30,12 +30,12 @@ class PollingAnswerController extends Controller
     public function edit($id)
     {
         $data['polling_question'] = PollingQuestion::where('event_id',Session::get('event_id'))->get();
-        $data['polling_answer'] = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling_answer'] = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($id)->first();
         return view('polling_answer.edit')->with($data);
     }
     public function update(Request $request, $id)
     {
-        $inv = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($id);
+        $inv = PollingAnswer::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $inv->fill($request->all());
         $inv->save();
 

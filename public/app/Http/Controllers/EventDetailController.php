@@ -25,12 +25,12 @@ class EventDetailController extends Controller
     }
     public function edit($id)
     {
-        $data['event_detail'] = EventDetail::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['event_detail'] = EventDetail::where('event_id',Session::get('event_id'))->whereId($id)->first();
         return view('event_detail.edit')->with($data);
     }
     public function update(Request $request, $id)
     {
-        $inv = EventDetail::where('event_id',Session::get('event_id'))->whereId($id);
+        $inv = EventDetail::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $inv->fill($request->all());
         $inv->save();
 

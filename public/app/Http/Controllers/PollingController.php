@@ -33,12 +33,12 @@ class PollingController extends Controller
     public function edit($id)
     {
         $data['polling_type'] = PollingType::all();
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         return view('polling.edit')->with($data);
     }
     public function show($id)
     {
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $arr = [];
         foreach (PollingQuestion::where('event_id',Session::get('event_id'))->where('polling_id',$id)->get() as $key) {
 
@@ -51,15 +51,15 @@ class PollingController extends Controller
     }
     public function detail($polling_id,$question_id)
     {
-        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($polling_id);
-        $data['polling_question'] = PollingQuestion::where('event_id',Session::get('event_id'))->whereId($question_id);
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($polling_id)->first();
+        $data['polling_question'] = PollingQuestion::where('event_id',Session::get('event_id'))->whereId($question_id)->first();
 
         $data['polling_response'] = PollingResponse::select(DB::raw('id, polling_answer_id, count(id) as total'))->where('event_id',Session::get('event_id'))->where('polling_question_id',$question_id)->with(['polling_answer'])->groupBy('polling_answer_id')->get();
         return view('polling.detail')->with($data);
     }
     public function update(Request $request, $id)
     {
-        $inv = Polling::where('event_id',Session::get('event_id'))->whereId($id);
+        $inv = Polling::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $inv->fill($request->all());
         $inv->save();
 

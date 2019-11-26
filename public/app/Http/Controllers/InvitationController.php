@@ -36,12 +36,12 @@ class InvitationController extends Controller
     public function edit($id)
     {
         $data['country'] = Country::all();
-        $data['invitation'] = Invitation::where('event_id',Session::get('event_id'))->whereId($id);
+        $data['invitation'] = Invitation::where('event_id',Session::get('event_id'))->whereId($id)->first();
         return view('invitation.edit')->with($data);
     }
     public function update(Request $request, $id)
     {
-        $inv = Invitation::where('event_id',Session::get('event_id'))->whereId($id);
+        $inv = Invitation::where('event_id',Session::get('event_id'))->whereId($id)->first();
         $inv->fill($request->all());
         $inv->save();
 
