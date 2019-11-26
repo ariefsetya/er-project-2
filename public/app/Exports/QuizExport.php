@@ -24,17 +24,17 @@ class QuizExport implements FromCollection
     public function collection()
     {
 
-        $data['polling'] = Polling::find($this->id);
-        $data['polling_participant'] = PollingParticipant::with(['invitation'])->where('polling_id',$this->id)->get();
+        $data['polling'] = Polling::where('event_id',Session::get('event_id'))->whereId($this->id);
+        $data['polling_participant'] = PollingParticipant::with(['invitation'])->where('event_id',Session::get('event_id'))->where('polling_id',$this->id)->get();
 
-    	$data = PollingParticipant::with(['invitation'])->where('polling_id',$this->id)->get();
+    	$data = PollingParticipant::where('event_id',Session::get('event_id'))->with(['invitation'])->where('polling_id',$this->id)->get();
 
     	$var = [
     		'Nama',
 	    	'Dealer'
 	    	];
 
-        foreach(\App\PollingQuestion::where('polling_id',$this->id)->get() as $key => $val){
+        foreach(\App\PollingQuestion::where('event_id',Session::get('event_id'))->where('polling_id',$this->id)->get() as $key => $val){
 			array_push($var,'Pertanyaan '.($key+1));
         }
 
@@ -51,8 +51,8 @@ class QuizExport implements FromCollection
 			$key->invitation->company
     	];
 
-        foreach(\App\PollingQuestion::where('polling_id',$this->id)->get() as $row => $val){
-	        $win = isset(\App\PollingResponse::where('polling_id',$this->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner)?\App\PollingResponse::where('polling_id',$this->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner:0;
+        foreach(\App\PollingQuestion::where('event_id',Session::get('event_id'))->where('polling_id',$this->id)->get() as $row => $val){
+	        $win = isset(\App\PollingResponse::where('event_id',Session::get('event_id'))->where('polling_id',$this->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner)?\App\PollingResponse::where('event_id',Session::get('event_id'))->where('polling_id',$this->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner:0;
 	        array_push($var, $win==1?'Benar':'Salah');
 	        $x+= $win;
         }

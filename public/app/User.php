@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email','phone','reg_number','country_id','company'
+        'event_id','name', 'email','phone','reg_number','country_id','company'
     ];
 
     protected $table = "ms_invitation";

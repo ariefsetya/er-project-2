@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Presence;
 use App\Product;
+use App\Event;
 use Session;
 use Illuminate\Support\Str;
 
@@ -34,9 +35,15 @@ class Firewall
         if(!Session::has('uuid')){
             Session::put('uuid',Str::uuid()->toString());
         }
+
+        list($subdomain) = explode('.', $request->getHost(), 2);
+
+        $subdomain = Event::whereCode($subdomain)->firstOrFail();
+
+        Session::put('event_id', $subdomain->id);
         
         $pre = new Presence;
-        $pre->event_id = 1;
+        $pre->event_id = Session::get('event_id');
         $pre->uri = $request->url();
         $pre->invitation_id = $user_id;
         $pre->uuid = Session::get('uuid');

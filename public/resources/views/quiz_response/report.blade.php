@@ -9,7 +9,7 @@
     		<tr>
 	    		<th>Nama</th>
 	    		<th>Dealer</th>
-                @foreach(\App\PollingQuestion::where('polling_id',$polling->id)->get() as $key => $val)
+                @foreach(\App\PollingQuestion::where('event_id',Session::get('event_id'))->where('polling_id',$polling->id)->get() as $key => $val)
                 <th>Pertanyaan {{$key+1}}</th>
                 @endforeach
                 <th>Total</th>
@@ -24,8 +24,8 @@
     			<tr>
     				<td>{{$key->invitation->name}}</td>
                     <td>{{$key->invitation->company}}</td>
-                    @foreach(\App\PollingQuestion::where('polling_id',$polling->id)->get() as $row => $val)
-                        <?php $win = isset(\App\PollingResponse::where('polling_id',$polling->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner)?\App\PollingResponse::where('polling_id',$polling->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner:0;?>
+                    @foreach(\App\PollingQuestion::where('event_id',Session::get('event_id'))->where('polling_id',$polling->id)->get() as $row => $val)
+                        <?php $win = isset(\App\PollingResponse::where('event_id',Session::get('event_id'))->where('polling_id',$polling->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner)?\App\PollingResponse::where('event_id',Session::get('event_id'))->where('polling_id',$polling->id)->where('invitation_id',$key->invitation->id)->where('polling_question_id',$val->id)->first()->is_winner:0;?>
                         <td>{{$win==1?'Benar':'Salah'}}</td>
                         <?php $x+= $win; ?>
                     @endforeach

@@ -54,7 +54,7 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{{ route('presence.report') }}">Kehadiran</a>
             <a class="collapse-item" href="{{ route('polling.report') }}">Polling</a>
-            <a class="collapse-item" href="{{ route('product.report') }}">Produk</a>
+            <!-- <a class="collapse-item" href="{{ route('product.report') }}">Produk</a> -->
           </div>
         </div>
       </li>

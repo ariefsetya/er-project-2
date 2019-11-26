@@ -9,7 +9,7 @@
      @foreach($result as $key => $value)
       <option value="polling:{{$value['polling']->polling_type_id.'-'.$value['polling']->id.'-'.sizeof($value['question']).'-'.$value['question'][0]->id}}">{{$value['polling']->name}}</option>
      @endforeach
-      <option value="custom:product">Produk</option>
+      <!-- <option value="custom:product">Produk</option> -->
    </select>
    <hr>
    <div id="question_layout" style="display: none;">

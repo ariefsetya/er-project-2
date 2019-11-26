@@ -17,38 +17,38 @@ class CustomAuthController extends Controller
     {	
 		$country_id = $r->input('country_id');
 		$phone = ltrim($r->input('phone'),"0");
-		if(User::where(['country_id'=>$country_id,'phone'=>$phone])->exists()){
-			$user = User::where(['country_id'=>$country_id,'phone'=>$phone])->first();
+		if(User::where('event_id',Session::get('event_id'))->where(['country_id'=>$country_id,'phone'=>$phone])->exists()){
+			$user = User::where('event_id',Session::get('event_id'))->where(['country_id'=>$country_id,'phone'=>$phone])->first();
 			
 			if($user->user_type_id==1){
 				
 				Auth::loginUsingId($user->id);
 
-				$inv = Invitation::find($user->id);
+				$inv = Invitation::where('event_id',Session::get('event_id'))->whereId($user->id);
 				$inv->need_login = 0;
 				$inv->save();
 				
-				return redirect()->route('admin')->with(['message'=>EventDetail::whereName('success_login')->first()->content]);
+				return redirect()->route('admin')->with(['message'=>EventDetail::where('event_id',Session::get('event_id'))->whereName('success_login')->first()->content]);
 
 			}else if($user->user_type_id==2){
 
 				if(Presence::where('invitation_id',$user->id)->exists() and $user->need_login==0){
 
-					return redirect()->route('loginPage')->with(['message'=>EventDetail::whereName('already_login')->first()->content]);
+					return redirect()->route('loginPage')->with(['message'=>EventDetail::where('event_id',Session::get('event_id'))->whereName('already_login')->first()->content]);
 
 				}else{
 
 					Auth::loginUsingId($user->id);
 
-					$inv = Invitation::find($user->id);
+					$inv = Invitation::where('event_id',Session::get('event_id'))->whereId($user->id);
 					$inv->need_login = 0;
 					$inv->save();
 
-					return redirect()->route('home')->with(['message'=>EventDetail::whereName('success_login')->first()->content]);
+					return redirect()->route('home')->with(['message'=>EventDetail::where('event_id',Session::get('event_id'))->whereName('success_login')->first()->content]);
 				}
 			}
 		}else{
-			return redirect()->route('loginPage',[1])->with(['message'=>EventDetail::whereName('failed_login')->first()->content]);
+			return redirect()->route('loginPage',[1])->with(['message'=>EventDetail::where('event_id',Session::get('event_id'))->whereName('failed_login')->first()->content]);
 		}
     }
     public function loginPage()
@@ -63,7 +63,7 @@ class CustomAuthController extends Controller
     {
     	if(Auth::check()){
 
-			$inv = Invitation::find(Auth::user()->id);
+			$inv = Invitation::where('event_id',Session::get('event_id'))->whereId(Auth::user()->id);
 			$inv->need_login = 1;
 			$inv->save();
 

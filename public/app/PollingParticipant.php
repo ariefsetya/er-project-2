@@ -12,7 +12,7 @@ class PollingParticipant extends Model
 
     protected $table = "tr_polling_participant";
     protected $fillable = [
-        'invitation_id', 'polling_id', 'is_winner'
+        'event_id', 'invitation_id', 'polling_id', 'is_winner'
     ];
     public function invitation()
     {
