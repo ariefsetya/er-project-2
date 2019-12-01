@@ -10,17 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
 
 // Route::domain('{code}.e-guestbook.com')->group(function () {
 
     Route::get('/loginPage','CustomAuthController@loginPage')->name('loginPage');
+    Route::get('/create_event/{name}/{location}/{date}','EventController@create_event')->name('create_event');
 
     Route::post('/phoneLogin','CustomAuthController@phoneLogin')->name('phoneLogin');
-    Route::get('/removeRedirectToHome',function()
-    {
-    	return redirect()->route('home');
-    })->name('removeRedirectToHome');
+    // Route::get('/removeRedirectToHome',function()
+    // {
+    // 	return redirect()->route('home');
+    // })->name('removeRedirectToHome');
 
     Route::get('/quiz_join/{id}','HomeController@quiz_join')->name('quiz_join');
     Route::get('/polling_question/{id?}','HomeController@polling_question')->name('polling_question');
@@ -35,6 +35,7 @@ Auth::routes();
 
     Route::get('/logout','CustomAuthController@logout')->name('logout');
 
+Auth::routes();
     Route::middleware(['auth'])->group(function () {
 
     	Route::get('/polling_response/{polling_id}/{invitation_id}/reset','PollingController@polling_response_reset')->name('polling_response.reset');
@@ -64,12 +65,12 @@ Auth::routes();
         Route::get('/screen','HomeController@screen')->name('screen');
     });
 
-    Route::prefix('products')->group(function () {
-    	Route::get('/{type}/{code}',function($type, $code)
-    	{
-    		return view('products')->with(['type'=>$type,'code'=>$code]);
-    	});
-    });
+    // Route::prefix('products')->group(function () {
+    // 	Route::get('/{type}/{code}',function($type, $code)
+    // 	{
+    // 		return view('products')->with(['type'=>$type,'code'=>$code]);
+    // 	});
+    // });
     Route::get('/response_product/{code?}/{response?}','HomeController@response_product')->name('response_product');
 
 // });

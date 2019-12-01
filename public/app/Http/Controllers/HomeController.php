@@ -22,7 +22,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
-    public function index($code)
+    public function index()
     {
         return view('home');
     }

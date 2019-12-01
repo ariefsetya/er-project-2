@@ -1,5 +1,6 @@
 {{csrf_field()}}
   <input type="hidden" name="user_type_id" value="2">
+  <input type="hidden" name="event_id" value="{{Session::get('event_id')}}">
   <div class="form-group">
     <label for="reg_number">Nomor Induk</label>
     <input type="text" class="form-control" required name="reg_number" id="reg_number" placeholder="Nomor Induk" value="{{$invitation->reg_number ?? ''}}">
