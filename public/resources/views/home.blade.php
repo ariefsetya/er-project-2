@@ -3,7 +3,7 @@
 @section('content')
 <div class="text-center   col-md-3" style="margin:0 auto;">
     <div class="">
-      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 60%;">
+      <img class="mb-4 text-center" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_header_logo')->first()->content}}" alt="" style="width: 60%;">
     </div>
 	<hr>
     <h3>{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','greeting_text')->first()->content}}<br>
@@ -34,7 +34,7 @@
     @else
     <h2>Please scan again later</h2>
     @endif
-    @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','logout_button_visibility')->first()->content==0)
+    @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','logout_button_visibility')->first()->content==1)
     <a href="{{route('logout')}}" class="btn btn-lg btn-dark col-md-12">Logout</a>
     @endif
 </div>

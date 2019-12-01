@@ -6,7 +6,7 @@
       {{csrf_field()}}
 
     <div class="">
-      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 60%;">
+      <img class="mb-4 text-center" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_header_logo')->first()->content}}" alt="" style="width: 60%;">
     </div>
       
     @if (\Session::has('message'))

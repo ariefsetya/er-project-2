@@ -31,7 +31,22 @@ class EventDetailController extends Controller
     public function update(Request $request, $id)
     {
         $inv = EventDetail::where('event_id',Session::get('event_id'))->whereId($id)->first();
-        $inv->fill($request->all());
+
+        if($inv->type=='text'){
+            $inv->fill($request->all());
+        }
+        else if($inv->type=='image'){
+            $file = $request->file('content');
+
+            $path = 'img/'.Session::get('event_id').'/';
+     
+                    // upload file
+            $file->move($path,$file->getClientOriginalName());
+            $data = $request->all();
+            $data['content'] = url($path.$file->getClientOriginalName());
+            $inv->fill($data);
+
+        }
         $inv->save();
 
         return redirect()->route('event_detail.index');

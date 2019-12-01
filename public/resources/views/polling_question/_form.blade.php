@@ -1,5 +1,5 @@
 {{csrf_field()}}
-  <input type="hidden" name="event_id" value="1">
+  <input type="hidden" name="event_id" value="{{Session::get('event_id')}}">
   <div class="form-group">
     <label for="polling_id">Polling</label>
     <select class="form-control" required name="polling_id" id="polling_id">

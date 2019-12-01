@@ -20,17 +20,18 @@ class EventController extends Controller
     	]);
 
     	$data = [
-	    	['event_id'=>$evt->id,'name'=>'success_login','content'=>'Berhasil masuk'],
-			['event_id'=>$evt->id,'name'=>'failed_login','content'=>'Silahkan ulangi atau hubungi panitia'],
-			['event_id'=>$evt->id,'name'=>'next_survey_button','content'=>'SELANJUTNYA'],
-			['event_id'=>$evt->id,'name'=>'finish_survey_button','content'=>'SELESAI'],
-			['event_id'=>$evt->id,'name'=>'finish_survey_alert','content'=>'TERIMA KASIH TELAH MENGIKUTI SURVEY'],
-			['event_id'=>$evt->id,'name'=>'already_login','content'=>'Anda sudah login pada device lain'],
-			['event_id'=>$evt->id,'name'=>'invitation_total','content'=>'250'],
-			['event_id'=>$evt->id,'name'=>'idle','content'=>'0'],
-			['event_id'=>$evt->id,'name'=>'greeting_text','content'=>'Welcome'],
-			['event_id'=>$evt->id,'name'=>'logout_button_visibility','content'=>'1'],
-			['event_id'=>$evt->id,'name'=>'website_title','content'=>'Your '.$name.' Website']
+	    	['event_id'=>$evt->id,'type'=>'text','name'=>'success_login','content'=>'Berhasil masuk'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'failed_login','content'=>'Silahkan ulangi atau hubungi panitia'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'next_survey_button','content'=>'SELANJUTNYA'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'finish_survey_button','content'=>'SELESAI'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'finish_survey_alert','content'=>'TERIMA KASIH TELAH MENGIKUTI SURVEY'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'already_login','content'=>'Anda sudah login pada device lain'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'invitation_total','content'=>'250'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'idle','content'=>'0'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'greeting_text','content'=>'Welcome'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'logout_button_visibility','content'=>'1'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'website_title','content'=>'Your '.$name.' Website'],
+			['event_id'=>$evt->id,'type'=>'image','name'=>'website_header_logo','content'=>'https://core.e-guestbook.com/img/HEADER.png']
 		];
 
 		foreach ($data as $key) {
