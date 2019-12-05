@@ -31,7 +31,12 @@ class EventController extends Controller
 			['event_id'=>$evt->id,'type'=>'text','name'=>'greeting_text','content'=>'Welcome'],
 			['event_id'=>$evt->id,'type'=>'text','name'=>'logout_button_visibility','content'=>'1'],
 			['event_id'=>$evt->id,'type'=>'text','name'=>'website_title','content'=>'Your '.$name.' Website'],
-			['event_id'=>$evt->id,'type'=>'image','name'=>'website_header_logo','content'=>'https://core.e-guestbook.com/img/HEADER.png']
+			['event_id'=>$evt->id,'type'=>'image','name'=>'website_header_logo','content'=>'https://core.e-guestbook.com/img/HEADER.png'],
+			['event_id'=>$evt->id,'type'=>'image','name'=>'website_footer_logo','content'=>'https://core.e-guestbook.com/img/FOOTER.png'],
+			['event_id'=>$evt->id,'type'=>'image','name'=>'website_background_image','content'=>'https://core.e-guestbook.com/img/BACKGROUND.png'],
+			['event_id'=>$evt->id,'type'=>'image','name'=>'website_overlay_background','content'=>'https://core.e-guestbook.com/img/FOOTER.png'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'mode','content'=>'register_barcode'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_url','content'=>'https://e-guestbook.com:3030/?bcid=qrcode&scale=5&text='],
 		];
 
 		foreach ($data as $key) {

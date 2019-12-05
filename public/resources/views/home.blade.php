@@ -1,15 +1,18 @@
 @extends('layouts.guest')
 
 @section('content')
-<div class="text-center   col-md-3" style="margin:0 auto;">
-    <div class="">
-      <img class="mb-4 text-center" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_header_logo')->first()->content}}" alt="" style="width: 60%;">
-    </div>
-	<hr>
-    <h3>{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','greeting_text')->first()->content}}<br>
-    {{Auth::user()->name}}<br>
-    {{Auth::user()->company}}</h3>
-    <hr>
+<div class="text-center col-md-3" style="margin:0 auto;">
+    @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','mode')->first()->content=='register_barcode')
+
+    @elseif(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','mode')->first()->content=='polling_website')
+        <h3>{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','greeting_text')->first()->content}}
+        @if(Auth::check())
+        <br>
+        {{Auth::user()->name}}<br>
+        {{Auth::user()->company}}
+        @endif
+        </h3>
+    @endif
     @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','idle')->first()->content==0)
         @foreach(\App\Polling::where('event_id',Session::get('event_id'))->get() as $row)
         	@if($row->polling_type_id==3)
@@ -37,5 +40,51 @@
     @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','logout_button_visibility')->first()->content==1)
     <a href="{{route('logout')}}" class="btn btn-lg btn-dark col-md-12">Logout</a>
     @endif
+
+
+    @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','mode')->first()->content=='register_barcode')
+        @if(!Auth::check())
+            <div style="display: block;" id="overlay_home"></div>
+            <a id="button_register" style="display:none;background: yellow; color: black;" href="{{route('registerPage')}}" class="btn btn-lg col-md-12">REGISTER</a>
+        @else
+            <div style="width:100%; margin:0 auto;">
+                <h5 style="color:white">REGISTRATION SUCCESS!</h5>
+                <br>
+                <div style="width:50%; margin:0 auto;">
+                    <div style="background: white;padding:20px;">
+                        <img style="width: 100%" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_url')->first()->content.Auth::user()->reg_number}}">
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div style="display: none;">
+                    <div class="float-left">
+                        <a href="" style="color:white;text-decoration: underline;">DOWNLOAD QR CODE</a>
+                    </div>
+                    <div class="float-right">
+                        <a href="" style="color:white;text-decoration: underline;">SEND QR CODE TO MY EMAIL</a>
+                    </div>
+
+                </div>
+                <br>
+                <br>
+                <div style="display: block;color: white;width:70%;margin:0 auto;">Please save and scan the QR Code<br>at registration desk on venue</div>
+            </div>
+        @endif
+    @endif
 </div>
+@endsection
+
+@section('footer')
+    @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','mode')->first()->content=='register_barcode')
+        @if(!Auth::check())
+        <script type="text/javascript">
+            $(window).ready(function() {
+                $("#overlay_home").css('height',$("#img_overlay_home").height()+40);
+                $("#button_register").fadeIn();
+            });
+        </script>
+        @endif
+    @endif
+    
 @endsection

@@ -12,6 +12,38 @@ use Illuminate\Http\Request;
 
 class CustomAuthController extends Controller
 {
+	public function registerPage()
+	{
+		return view('auth.register');
+	}
+	public function register_invitation(Request $r)
+	{
+
+		$last = Invitation::orderBy('id','desc')->first();
+		if(isset($last->reg_number)){
+			if($last->reg_number==''){
+				$last = str_pad(1, 4, '0', STR_PAD_LEFT);
+			}else{
+				$last = str_pad(++$last->reg_number, 4, '0', STR_PAD_LEFT);
+			}
+		}else{
+			$last = str_pad(1, 4, '0', STR_PAD_LEFT);
+		}
+
+		$data = $r->all();
+		$data['reg_number'] = $last;
+
+		$inv = Invitation::create($data);
+
+		Auth::loginUsingId($inv->id);
+
+		return redirect()->route('home');
+	}
+
+	public function removeRedirectToHome()
+	{
+		return redirect()->route('home');
+	}
 
     public function phoneLogin(Request $r)
     {	

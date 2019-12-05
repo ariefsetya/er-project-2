@@ -1,77 +1,86 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<div class="col-md-3 text-center" style="margin:0 auto;">
+  <form method="POST" action="{{route('register_invitation')}}">
+    {{csrf_field()}}
+    <input type="hidden" name="country_id" value="100">
+    <input type="hidden" name="event_id" value="{{Session::get('event_id')}}">
+    <div class="form-group text-center">
+      <input type="text" required placeholder="name" class="form-control form-control-lg text-center" id="name" name="name" value="{{ old('name') }}">
+      @if($errors->any())
+        @foreach ($errors->get('name') as $message)
+        <div class="invalid-feedback">
+          {{$message}}
         </div>
+        @endforeach
+      @endif
     </div>
+    <div class="form-group text-center">
+      <input type="text" required placeholder="company" class="form-control form-control-lg text-center" id="company" name="company" value="{{ old('company') }}">
+      @if($errors->any())
+        @foreach ($errors->get('company') as $message)
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>
+        @endforeach
+      @endif
+    </div>
+    <div class="form-group text-center">
+      <input type="text" required placeholder="phone number" class="form-control form-control-lg text-center" id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
+      @if($errors->any())
+        @foreach ($errors->get('phone_number') as $message)
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>
+        @endforeach
+      @endif
+    </div>
+    <div class="form-group text-center">
+      <input type="email" required placeholder="email" class="form-control form-control-lg text-center" id="email" name="email" value="{{ old('email') }}">
+      @if($errors->any())
+        @foreach ($errors->get('email') as $message)
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>
+        @endforeach
+      @endif
+    </div>
+    <div class="row">
+    <div class="col-md-6 form-group text-center">
+      <input type="text" required placeholder="place of birth" class="form-control form-control-lg text-center" id="custom_field_1" name="custom_field_1" value="{{ old('custom_field_1') }}">
+      @if($errors->any())
+        @foreach ($errors->get('custom_field_1') as $message)
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>
+        @endforeach
+      @endif
+    </div>
+    <div class="col-md-6 form-group text-center">
+      <input type="date" required placeholder="custom_field_2" class="form-control form-control-lg text-center" id="custom_field_2" name="custom_field_2" value="{{ old('custom_field_2') }}">
+      @if($errors->any())
+        @foreach ($errors->get('custom_field_2') as $message)
+        <div class="invalid-feedback">
+          {{$message}}
+        </div>
+        @endforeach
+      @endif
+    </div>
+    </div>
+    <button type="submit" class="btn btn-block btn-lg" style="background:yellow;">SUBMIT</button>
+    <br>
+  </form>
 </div>
+<style type="text/css">
+  .invalid-feedback{ display: block !important; }
+</style>
+@endsection
+
+@section('footer')
+    <script type="text/javascript">
+        
+    $("input[type=date]").datepicker({ dateFormat: "MM/dd/yyyy" });
+    </script>
 @endsection

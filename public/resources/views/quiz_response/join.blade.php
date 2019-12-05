@@ -2,12 +2,8 @@
 
 @section('content')
 
-<div class="col-md-3" style="margin:0 auto;">
-    <div class="">
-      <img class="mb-4 text-center" src="{{asset('img/HEADER.png')}}" alt="" style="width: 100%;">
-    </div>
+<div class="col-md-3 text-center" style="margin:0 auto;">
   <form method="POST" action="{{route('join_quiz',[$polling->id])}}">
-
     {{csrf_field()}}
     <div class="form-group text-center">
       <label for="name" class="form-control-lg">NAMA</label>
@@ -36,8 +32,6 @@
   </form>
 </div>
 <style type="text/css">
-  .invalid-feedback{
-    display: block !important;
-  }
+  .invalid-feedback{ display: block !important; }
 </style>
 @endsection

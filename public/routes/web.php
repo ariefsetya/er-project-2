@@ -11,16 +11,14 @@
 |
 */
 
-// Route::domain('{code}.e-guestbook.com')->group(function () {
 
+    Route::post('/register_invitation', 'CustomAuthController@register_invitation')->name('register_invitation');
     Route::get('/loginPage','CustomAuthController@loginPage')->name('loginPage');
+    Route::get('/registerPage','CustomAuthController@registerPage')->name('registerPage');
     Route::get('/create_event/{name}/{location}/{date}','EventController@create_event')->name('create_event');
 
     Route::post('/phoneLogin','CustomAuthController@phoneLogin')->name('phoneLogin');
-    Route::get('/removeRedirectToHome',function()
-    {
-    	return redirect()->route('home');
-    })->name('removeRedirectToHome');
+    Route::get('/removeRedirectToHome','CustomAuthController@removeRedirectToHome')->name('removeRedirectToHome');
 
     Route::get('/quiz_join/{id}','HomeController@quiz_join')->name('quiz_join');
     Route::get('/polling_question/{id?}','HomeController@polling_question')->name('polling_question');
@@ -34,6 +32,7 @@
     Route::post('/join_quiz/{id}', 'HomeController@join_quiz')->name('join_quiz');
 
     Route::get('/logout','CustomAuthController@logout')->name('logout');
+    Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
     Route::middleware(['auth'])->group(function () {
@@ -41,7 +40,6 @@ Auth::routes();
     	Route::get('/polling_response/{polling_id}/{invitation_id}/reset','PollingController@polling_response_reset')->name('polling_response.reset');
         Route::get('/quiz_response/{id}','HomeController@quiz_response')->name('quiz_response');
     	Route::get('/quiz_response/{question_id?}/{answer_id?}','HomeController@select_quiz_response')->name('select_quiz_response');
-        Route::get('/', 'HomeController@index')->name('home');
 
     });
 
@@ -72,51 +70,3 @@ Auth::routes();
     // 	});
     // });
     Route::get('/response_product/{code?}/{response?}','HomeController@response_product')->name('response_product');
-
-// });
-
-// Route::get('/update_chart_polling/{id}',function($id)
-// {
-
-//     $bgColor = [
-//             'rgba(255, 99, 132, 0.7)',
-//             'rgba(54, 162, 235, 0.7)',
-//             'rgba(255, 206, 86, 0.7)',
-//             'rgba(75, 192, 192, 0.7)',
-//             'rgba(153, 102, 255, 0.7)',
-//             'rgba(255, 159, 64, 0.7)'
-//         ];
-//     $bdColor = [
-//             'rgba(255, 99, 132, 1)',
-//             'rgba(54, 162, 235, 1)',
-//             'rgba(255, 206, 86, 1)',
-//             'rgba(75, 192, 192, 1)',
-//             'rgba(153, 102, 255, 1)',
-//             'rgba(255, 159, 64, 1)'
-//         ];
-
-//     \App\Polling::find($id);
-//     $data['labels'] = [''];
-//     $data['datasets'] = [];
-//     $x = 0;
-//     foreach (\App\PollingQuestion::where('polling_id',$id)->get() as $key) {
-//         foreach (\App\PollingAnswer::where('polling_question_id',$key->id)->get() as $row) {
-//             $datasets = [
-//                 'label'=>$row->content,
-//                 'data'=>[12],
-//                 'backgroundColor'=>$bgColor[$x],
-//                 'borderColor'=>$bdColor[$x],
-//                 'borderWidth'=>1
-//             ];
-//             $data['datasets'][] = $datasets;
-//             $x++;
-//             if($x==sizeof($bgColor)){
-//                 $x = 0;
-//             }
-//         }
-//     }
-//     dd($data);
-
-//     return response()->json($data,200);
-
-// });

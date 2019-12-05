@@ -12,16 +12,24 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ url('css/bootstrap.min.css') }}">
 </head>
-<body style="position: relative;/*background-image: url({{ asset('img/BACKGROUND.png') }});*/background-size: 100%;min-height: 100% !important;">
+<body style="position: relative;background-image: url({{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_background_image')->first()->content}});background-size: 100%;min-height: 100% !important;">
     <div id="app">
         <main class="py-4">
+
+<div class="col-md-3 text-center" style="margin:0 auto;">
+    <div class="">
+      <img class="mb-4 text-center" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_header_logo')->first()->content}}" alt="" style="width: 100%;">
+    </div>
+</div>
+            <img style="width:50%;position: absolute;top: 55%;left: 50%;transform: translate(-50%, -50%);" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_overlay_background')->first()->content}}"  id="img_overlay_home">
             @yield('content')
         </main>
     </div>
    
-        <div class="col-md-3 footer" style="z-index:-999999999;margin:0 auto 20px;padding: 0;position: absolute;bottom:0;left:0;right:0;">
-          <!-- <img class="text-center" src="{{ asset('img/FOOTER.png') }}" alt="" style="width: 90%;margin: 0 0 0 5%;left:50%;"> -->
-        </div>
+        
+<div class="text-center col-md-3" style="margin:0 auto;">
+      <img class="mb-4 text-center" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_footer_logo')->first()->content}}" alt="" style="width: 60%;">
+</div>
 </body>
 
 <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
