@@ -67,7 +67,7 @@
                         <a href="{{route('downloadBarcode')}}" style="color:white;text-decoration: underline;">DOWNLOAD QR CODE</a>
                     </div>
                     <div class="float-right">
-                        <a href="" style="color:white;text-decoration: underline;">SEND QR CODE TO MY EMAIL</a>
+                        <a href="{{route('sendEmailBarcode')}}" style="color:white;text-decoration: underline;">SEND QR CODE TO MY EMAIL</a>
                     </div>
 
                 </div>
