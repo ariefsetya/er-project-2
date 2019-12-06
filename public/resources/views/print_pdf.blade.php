@@ -12,15 +12,15 @@
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="{{ url('css/bootstrap.min.css') }}">
     <style type="text/css">
-        @page { margin: 0px; }
-        body { margin: 0px; }
+        @page { margin: 0px !important; }
+        body { margin: 0px !important; }
     </style>
 </head>
 <body style="position: relative;background-image: url({{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_background_image')->first()->content}});background-size: 100%;min-height: 100% !important;">
     <div id="app">
         <main class="py-4">
 
-<div class="text-center col-md-3" style="margin:0 auto;">
+<div class="text-center" style="margin:0 auto;">
 
             <div style="width:90%; margin:0 auto;position: relative;display: block;clear: both;">
                 <br>
