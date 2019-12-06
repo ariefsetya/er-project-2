@@ -30,7 +30,8 @@ class sendBarcode extends Mailable
      */
     public function build()
     {
-        return $this->from(['address' => 'eventwebsiteid@gmail.com', 'name' => 'Event Website'])
+        return $this->from(['address' => 'egustbookcom@gmail.com', 'name' => 'E-Guestbook'])
+                ->subject('Your QR Code')
                 ->view('emails.barcode')
                 ->attach(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
     }
