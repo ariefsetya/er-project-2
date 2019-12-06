@@ -1,3 +1,4 @@
+
 @extends('layouts.guest')
 
 @section('content')
@@ -47,7 +48,7 @@
             <div style="display: block;" id="overlay_home"></div>
             <a id="button_register" style="display:none;background: yellow; color: black;" href="{{route('registerPage')}}" class="btn btn-lg col-md-12">REGISTER</a>
         @else
-            <div style="width:100%; margin:0 auto;">
+            <div style="width:100%; margin:0 auto;position: relative;display: block;clear: both;">
                 <h5 style="color:white">REGISTRATION SUCCESS!</h5>
                 <br>
                 <div style="width:50%; margin:0 auto;">
@@ -57,9 +58,13 @@
                 </div>
                 <br>
                 <br>
+                @if(isset($status))
                 <div style="display: none;">
+                @else
+                <div style="display: block;">
+                @endif
                     <div class="float-left">
-                        <a href="" style="color:white;text-decoration: underline;">DOWNLOAD QR CODE</a>
+                        <a href="{{route('downloadBarcode')}}" style="color:white;text-decoration: underline;">DOWNLOAD QR CODE</a>
                     </div>
                     <div class="float-right">
                         <a href="" style="color:white;text-decoration: underline;">SEND QR CODE TO MY EMAIL</a>
