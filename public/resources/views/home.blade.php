@@ -57,7 +57,6 @@
                     </div>
                 </div>
                 <br>
-                <br>
                 @if(isset($status))
                 <div style="display: none;">
                 @else
@@ -72,7 +71,6 @@
                     </div>
 
                 </div>
-                <br>
                 <br>
                 <div style="display: block;color: white;width:70%;margin:0 auto;">Please save and scan the QR Code<br>at registration desk on venue</div>
             </div>
