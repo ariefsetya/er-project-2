@@ -39,7 +39,7 @@
                 </div>
                 <br>
                 <br>
-                <div style="display: block;color: white;text-align:center;width:70%;margin:0 auto;font-size:16pt;">Please save and scan the QR Code<br>at registration desk on venue</div>
+                <div style="display: block;color: white;text-align:center;width:80%;margin:0 auto;font-size:16pt;">Please save and scan the QR Code<br>at registration desk on venue</div>
             </div>
 </div>
 
