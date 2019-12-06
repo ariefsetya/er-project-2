@@ -24,14 +24,11 @@
 
             <div style="width:90%; margin:0 auto;position: relative;display: block;clear: both;">
                 <br>
-                <br>
 
       <img class="mb-4 text-center" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_header_logo')->first()->content}}" alt="" style="width: 100%;">
                 <br>
                 <br>
-                <br>
-                <h1 style="color:white;margin:0 auto;text-align: center;">REGISTRATION SUCCESS!</h1>
-                <br>
+                <h2 style="color:white;margin:0 auto;text-align: center;">REGISTRATION SUCCESS!</h2>
                 <br>
                 <br>
                 <br>
