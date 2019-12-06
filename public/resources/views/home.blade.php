@@ -63,10 +63,11 @@
                 @else
                 <div style="display: block;">
                 @endif
-                    <div class="float-left">
+                    <div style="display: block;">
                         <a href="{{route('downloadBarcode')}}" style="color:white;text-decoration: underline;">DOWNLOAD QR CODE</a>
                     </div>
-                    <div class="float-right">
+                    <br>
+                    <div style="display: block;">
                         <a href="{{route('sendEmailBarcode')}}" style="color:white;text-decoration: underline;">SEND QR CODE TO MY EMAIL</a>
                     </div>
 
