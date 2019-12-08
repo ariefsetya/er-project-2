@@ -268,7 +268,7 @@ class HomeController extends Controller
         $pdf = PDF::loadView('print_pdf',['status'=>'print'])->setPaper([0,0,360,640], 'potrait');
         $pdf->save(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
 
-        $img = new Spatie\PdfToImage\Pdf(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
+        $img = new \Spatie\PdfToImage\Pdf(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
         $img->saveImage(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.jpg'));
 
         return response()->download(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.jpg'));
