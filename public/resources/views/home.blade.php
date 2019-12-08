@@ -5,6 +5,11 @@
 <div class="text-center col-md-3" style="margin:0 auto;">
     @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','mode')->first()->content=='register_barcode')
 
+
+    @if(isset($email))
+    <p class="text-center" style="color:white;">{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_email_sent_message')->first()->content}}</p>
+    @endif
+
     @elseif(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','mode')->first()->content=='polling_website')
         <h3>{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','greeting_text')->first()->content}}
         @if(Auth::check())
@@ -62,7 +67,6 @@
                 <div style="display: block;">
                         <a class="btn btn-block btn-lg" href="{{route('downloadBarcode')}}" style="background: yellow;">DOWNLOAD QR CODE</a>
                         <a class="btn btn-block btn-lg" href="{{route('sendEmailBarcode')}}" style="background: yellow;">SEND QR CODE TO MY EMAIL</a>
-                        <p class="text-center">{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_email_sent_message')->first()->content</p>
                 </div>
             </div>
         @endif
