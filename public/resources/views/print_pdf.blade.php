@@ -28,7 +28,7 @@
       <img class="mb-4 text-center" src="{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','website_header_logo')->first()->content}}" alt="" style="width: 100%;">
                 <br>
                 <br>
-                <h2 style="color:white;margin:0 auto;text-align: center;">REGISTRATION SUCCESS!</h2>
+                <h2 style="color:white;margin:0 auto;text-align: center;font-family: sans-serif;">REGISTRATION SUCCESS!</h2>
                 <br>
                 <br>
                 <br>
@@ -39,7 +39,7 @@
                 </div>
                 <br>
                 <br>
-                <div style="display: block;color: white;text-align:center;width:80%;margin:0 auto;font-size:16pt;">Please save and scan the QR Code<br>at registration desk on venue</div>
+                <div style="display: block;color: white;text-align:center;width:80%;margin:0 auto;font-size:16pt;font-family: sans-serif;">Please save and scan the QR Code<br>at registration desk on venue</div>
             </div>
 </div>
 
