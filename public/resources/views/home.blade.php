@@ -59,7 +59,7 @@
                 <br>
                 <div style="display: block;color: white;width:70%;margin:0 auto;">Please save and scan the QR Code<br>at registration desk on venue</div>
                 <br>
-                <div style="display: none;">
+                <div style="display: block;">
                         <a class="btn btn-block btn-lg" href="{{route('downloadBarcode')}}" style="background: yellow;">DOWNLOAD QR CODE</a>
                         <a class="btn btn-block btn-lg" href="{{route('sendEmailBarcode')}}" style="background: yellow;">SEND QR CODE TO MY EMAIL</a>
                 </div>
