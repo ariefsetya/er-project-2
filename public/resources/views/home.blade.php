@@ -6,7 +6,7 @@
     @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','mode')->first()->content=='register_barcode')
 
 
-    @if(isset($email))
+    @if($message = Session::get('success'))
     <p class="text-center" style="color:white;">{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_email_sent_message')->first()->content}}</p>
     @endif
 
