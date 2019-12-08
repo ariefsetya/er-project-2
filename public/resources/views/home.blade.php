@@ -49,7 +49,7 @@
             <a id="button_register" style="display:none;background: yellow; color: black;" href="{{route('registerPage')}}" class="btn btn-lg col-md-12">REGISTER</a>
         @else
             <div style="width:100%; margin:0 auto;position: relative;display: block;clear: both;">
-                <h5 style="color:white">REGISTRATION SUCCESS!</h5>
+                <h5 style="color:white">{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_success_message')->first()->content}}</h5>
                 <br>
                 <div style="width:50%; margin:0 auto;">
                     <div style="background: white;padding:20px;">
@@ -57,22 +57,12 @@
                     </div>
                 </div>
                 <br>
-                @if(isset($status))
-                <div style="display: none;">
-                @else
-                <div style="display: block;">
-                @endif
-                    <div style="display: block;">
-                        <a href="{{route('downloadBarcode')}}" style="color:white;text-decoration: underline;">DOWNLOAD QR CODE</a>
-                    </div>
-                    <br>
-                    <div style="display: block;">
-                        <a href="{{route('sendEmailBarcode')}}" style="color:white;text-decoration: underline;">SEND QR CODE TO MY EMAIL</a>
-                    </div>
-
-                </div>
-                <br>
                 <div style="display: block;color: white;width:70%;margin:0 auto;">Please save and scan the QR Code<br>at registration desk on venue</div>
+                <br>
+                <div style="display: none;">
+                        <a class="btn btn-block btn-lg" href="{{route('downloadBarcode')}}" style="background: yellow;">DOWNLOAD QR CODE</a>
+                        <a class="btn btn-block btn-lg" href="{{route('sendEmailBarcode')}}" style="background: yellow;">SEND QR CODE TO MY EMAIL</a>
+                </div>
             </div>
         @endif
     @endif

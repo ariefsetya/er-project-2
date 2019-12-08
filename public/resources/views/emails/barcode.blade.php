@@ -1,4 +1,3 @@
-Dear {{Auth::user()->name}},
+Dear {{Auth::user()->name}},<br>
 <br>
-<br>
-your QR Code is attached.
+{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_email_body')->first()->content}}

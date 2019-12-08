@@ -37,6 +37,11 @@ class EventController extends Controller
 			['event_id'=>$evt->id,'type'=>'image','name'=>'website_overlay_background','content'=>'https://core.e-guestbook.com/img/FOOTER.png'],
 			['event_id'=>$evt->id,'type'=>'text','name'=>'mode','content'=>'register_barcode'],
 			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_url','content'=>'https://e-guestbook.com:3030/?bcid=qrcode&scale=5&text='],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_email_body','content'=>'Your QR Code attached.'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_email_subject','content'=>'Your QR Code'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_email_from','content'=>'eguestbook@gmail.com'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_email_from_name','content'=>'E-Guestbook'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_success_message','content'=>'REGISTRATION SUCCESS!'],
 		];
 
 		foreach ($data as $key) {
