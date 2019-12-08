@@ -32,6 +32,7 @@ class CustomAuthController extends Controller
 
 		$data = $r->all();
 		$data['reg_number'] = $last;
+		$data['user_type_id'] = 2;
 
 		$inv = Invitation::create($data);
 
