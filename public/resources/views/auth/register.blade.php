@@ -28,9 +28,9 @@
       @endif
     </div>
     <div class="form-group text-center">
-      <input type="text" required placeholder="phone number" class="form-control form-control-lg text-center" id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
+      <input type="text" required placeholder="phone number" class="form-control form-control-lg text-center" id="phone" name="phone" value="{{ old('phone') }}">
       @if($errors->any())
-        @foreach ($errors->get('phone_number') as $message)
+        @foreach ($errors->get('phone') as $message)
         <div class="invalid-feedback">
           {{$message}}
         </div>
