@@ -283,6 +283,6 @@ class HomeController extends Controller
         $pdf = PDF::loadView('print_pdf',['status'=>'print'])->setPaper([0,0,360,640], 'potrait');
         $pdf->save(public_path('/pdf/'.Session::get('event_id').'/'.Auth::user()->name.'.pdf'));
         Mail::to(Auth::user()->email)->send(new sendBarcode());
-        return redirect()->route('home')->with(['email'=>'sent']);
+        return redirect()->route('home')->with('email',['sent']);
     }
 }
