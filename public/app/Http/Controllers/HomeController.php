@@ -266,18 +266,18 @@ class HomeController extends Controller
     public function downloadBarcode()
     {
         $pdf = PDF::loadView('print_pdf',['status'=>'print'])->setPaper([0,0,360,640], 'potrait');
-        $pdf->save(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
+        $pdf->save(public_path('/pdf/'.Session::get('event_id').'/'.Auth::user()->name.'.pdf'));
 
-        $img = new \Spatie\PdfToImage\Pdf(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
-        $img->saveImage(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.jpg'));
+        $img = new \Spatie\PdfToImage\Pdf(public_path('/pdf/'.Session::get('event_id').'/'.Auth::user()->name.'.pdf'));
+        $img->saveImage(public_path('/pdf/'.Session::get('event_id').'/'.Auth::user()->name.'.jpg'));
 
-        return response()->download(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.jpg'));
+        return response()->download(public_path('/pdf/'.Session::get('event_id').'/'.Auth::user()->name.'.jpg'));
     }
     public function sendEmailBarcode()
     {
         $pdf = PDF::loadView('print_pdf',['status'=>'print'])->setPaper([0,0,360,640], 'potrait');
-        $pdf->save(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
+        $pdf->save(public_path('/pdf/'.Session::get('event_id').'/'.Auth::user()->name.'.pdf'));
         Mail::to(Auth::user()->email)->send(new sendBarcode());
-        return redirect()->route('home');
+        return redirect()->route('home')->with(['email'=>'sent']);
     }
 }

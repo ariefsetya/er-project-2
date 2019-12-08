@@ -62,6 +62,7 @@
                 <div style="display: block;">
                         <a class="btn btn-block btn-lg" href="{{route('downloadBarcode')}}" style="background: yellow;">DOWNLOAD QR CODE</a>
                         <a class="btn btn-block btn-lg" href="{{route('sendEmailBarcode')}}" style="background: yellow;">SEND QR CODE TO MY EMAIL</a>
+                        <p class="text-center">{{\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_email_sent_message')->first()->content</p>
                 </div>
             </div>
         @endif

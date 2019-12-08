@@ -34,6 +34,6 @@ class sendBarcode extends Mailable
         return $this->from(['address' => EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_email_from')->first()->content, 'name' => EventDetail::where('event_id',Session::get('event_id'))->where('name','barcode_email_from_name')->first()->content])
                 ->subject(EventDetail::where('event_id',Session::get('event_id'))->where('name','website_title')->first()->content)
                 ->view('emails.barcode')
-                ->attach(public_path('/pdf/'.Session::get('event_id').'-'.Auth::user()->name.'.pdf'));
+                ->attach(public_path('/pdf/'.Session::get('event_id').'/'.Auth::user()->name.'.pdf'));
     }
 }
