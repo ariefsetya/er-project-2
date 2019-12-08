@@ -74,7 +74,7 @@ class InvitationController extends Controller
     }
     public function reset()
     {
-        Invitation::where('event_id',Session::get('event_id'))->where('id','>','1')->delete();
+        Invitation::where('event_id',Session::get('event_id'))->where('user_type_id','2')->delete();
         Presence::where('event_id',Session::get('event_id'))->delete();
         PollingParticipant::where('event_id',Session::get('event_id'))->delete();
         PollingResponse::where('event_id',Session::get('event_id'))->delete();
