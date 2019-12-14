@@ -59,7 +59,7 @@
       @endif
     </div>
     <div class="col-md-6 form-group text-center">
-      <input type="date" required placeholder="custom_field_2" class="form-control form-control-lg text-center" id="custom_field_2" name="custom_field_2" min="1970-01-01" value="{{ old('custom_field_2')!=''?old('custom_field_2'):'1970-01-01' }}">
+      <input type="date" required placeholder="custom_field_2" class="form-control form-control-lg text-center" id="custom_field_2" name="custom_field_2" value="{{ old('custom_field_2')!=''?old('custom_field_2'):'1970-01-01' }}">
       @if($errors->any())
         @foreach ($errors->get('custom_field_2') as $message)
         <div class="invalid-feedback">

@@ -17,14 +17,24 @@ class PresenceExport implements FromCollection
     	$data = Presence::select(DB::raw("id, invitation_id, min(created_at) as start_time, max(created_at) as end_time"))->where('event_id',Session::get('event_id'))->where('invitation_id','>',0)->with(['invitation'])->orderBy('created_at','asc')->groupBy('invitation_id')->get();
 
     	$arr[] = [
-    			'Nama',
-    			'Nama Dealer',
-    			'Check In'
+    			'Kode',
+                'Nama',
+                'E-Mail ',
+                'Telp ',
+    			'Perusahaan ',
+                'Tempat Lahir ',
+                'Tanggal Lahir ',
+    			'Tanggal Daftar'
     		];
     	foreach ($data as $key) {
     		$arr[] = [
-    			$key->invitation->name,
+    			$key->invitation->reg_number,
+                $key->invitation->name,
+                $key->invitation->email,
+                $key->invitation->phone,
     			$key->invitation->company,
+                $key->invitation->custom_field_1,
+                $key->invitation->custom_field_2,
     			$key->start_time
     		];
     	}
