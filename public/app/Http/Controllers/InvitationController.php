@@ -11,6 +11,7 @@ use App\ProductResponse;
 use DB;
 use Session;
 use Illuminate\Http\Request;
+use App\Imports\InvitationImport;
 use App\Exports\PresenceExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -78,6 +79,23 @@ class InvitationController extends Controller
         Presence::where('event_id',Session::get('event_id'))->delete();
         PollingParticipant::where('event_id',Session::get('event_id'))->delete();
         PollingResponse::where('event_id',Session::get('event_id'))->delete();
+
+        return redirect()->route('invitation.index');
+    }
+    public function import()
+    {
+        return view('Invitation.import');
+    }
+    public function process_import(Request $r)
+    {
+        if($r->input('import_type')==2){
+            Invitation::where('event_id',Session::get('event_id'))->where('user_type_id','2')->delete();
+            Presence::where('event_id',Session::get('event_id'))->delete();
+            PollingParticipant::where('event_id',Session::get('event_id'))->delete();
+            PollingResponse::where('event_id',Session::get('event_id'))->delete();
+        }
+
+        $exc = Excel::import(new InvitationImport, request()->file('excel_file'));
 
         return redirect()->route('invitation.index');
     }

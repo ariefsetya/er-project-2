@@ -4,6 +4,7 @@
 <div class="">
     <h2>Data Tamu
         <div class="float-right">
+    <a class="btn btn-success" href="{{route('invitation.import')}}">Import</a>
     <a class="btn btn-primary" href="{{route('invitation.create')}}">Tambah</a>
     <a class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin me-reset data?')" href="{{route('invitation.reset')}}">Reset</a>
     </div>

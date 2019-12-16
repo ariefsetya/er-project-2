@@ -51,6 +51,8 @@ Auth::routes();
         Route::get('/product/report/excel','HomeController@product_export_excel')->name('product.export_excel');
         Route::get('/presence/report','InvitationController@report')->name('presence.report');
         Route::get('/presence/export/excel', 'InvitationController@export_excel')->name('invitation.export_excel');
+        Route::get('/invitation/import', 'InvitationController@import')->name('invitation.import');
+        Route::post('/invitation/import', 'InvitationController@process_import')->name('invitation.process_import');
         Route::get('/quiz/export/excel/{polling_id}', 'HomeController@quiz_export_excel')->name('quiz.export_excel');
         Route::get('/invitation/{id}/clear','InvitationController@clear')->name('invitation.clear');
         Route::get('/invitation/reset','InvitationController@reset')->name('invitation.reset');

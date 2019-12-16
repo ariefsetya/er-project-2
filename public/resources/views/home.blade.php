@@ -44,7 +44,9 @@
     <h2>Please scan again later</h2>
     @endif
     @if(\App\EventDetail::where('event_id',Session::get('event_id'))->where('name','logout_button_visibility')->first()->content==1)
-    <a href="{{route('logout')}}" class="btn btn-lg btn-dark col-md-12">Logout</a>
+        @if(Auth::check())
+            <a href="{{route('logout')}}" class="btn btn-lg btn-dark col-md-12">Logout</a>
+        @endif
     @endif
 
 
