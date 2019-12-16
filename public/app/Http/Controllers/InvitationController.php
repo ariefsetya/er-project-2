@@ -84,7 +84,7 @@ class InvitationController extends Controller
     }
     public function import()
     {
-        return view('Invitation.import');
+        return view('invitation.import');
     }
     public function process_import(Request $r)
     {
