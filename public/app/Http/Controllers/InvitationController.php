@@ -117,6 +117,10 @@ class InvitationController extends Controller
         File::makeDirectory(public_path(). '/models/' . $imageName, $mode = 0777, true, true);
         File::put(public_path(). '/models/' . $imageName.'/1.png', base64_decode($image));
 
+        $inv = Invitation::find(Auth::user()->id);
+        $inv->custom_field_3 = 1;
+        $inv->save();
+
         return response()->json([
             'message'=>'Success'
         ],200);
