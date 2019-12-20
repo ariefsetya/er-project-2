@@ -84,7 +84,7 @@
 
     <div style="position: relative" class="margin"   style="width: 100%;height: 100%;">
       <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline   style="width: 100%;height: 100%;"></video>
-      <canvas id="overlay"></canvas>
+      <canvas id="overlay" style="width: 100%;height: 100%;"></canvas>
 
       <div id="capturedimage" style="display: none;"></div>
 
