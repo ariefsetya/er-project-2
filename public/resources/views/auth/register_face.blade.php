@@ -86,11 +86,11 @@
       <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline   style="width: 100%;height: 100%;"></video>
       <canvas id="overlay" style="width: 100%;height: 100%;"></canvas>
 
+    </div>
       <div id="capturedimage" style="display: none;"></div>
 
       <div id="facesContainer" style="display: none;"></div>
       <a class="btn btn-lg btn-dark btn-block" onclick="getImage()">Ambil Foto</a>
-    </div>
 @endsection
 
 @section('footer')
