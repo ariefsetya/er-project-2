@@ -9,6 +9,8 @@ use App\PollingParticipant;
 use App\PollingResponse;
 use App\ProductResponse;
 use DB;
+use Auth;
+use File;
 use Session;
 use Illuminate\Http\Request;
 use App\Imports\InvitationImport;
@@ -99,4 +101,38 @@ class InvitationController extends Controller
 
         return redirect()->route('invitation.index');
     }
+
+    public function register_face()
+    {
+        return view('auth.register_face');
+    }
+
+    public function process_register_face(Request $r)
+    {
+        $image = $r->image;  // your base64 encoded
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = Auth::user()->id;
+
+        File::makeDirectory(public_path(). '/models/' . $imageName, $mode = 0777, true, true);
+        File::put(public_path(). '/models/' . $imageName.'/1.png', base64_decode($image));
+
+        return response()->json([
+            'message'=>'Success'
+        ],200);
+    }
+    public function check_id(Request $r)
+    {
+        $id = explode(" ",$r->input('id'));
+        $inv = Invitation::find($id[0]);
+        return response()->json([
+            'message'=>'Success',
+            'result'=>$inv
+        ],200);
+    }
+    public function check_in_face()
+    {
+        return view('auth.check_in_face');
+    }
+
 }

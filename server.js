@@ -2,25 +2,29 @@ var express = require('express'),
     app = express(),
     port = 9000,
     bodyParser = require('body-parser'),
-    fs = require('fs');
+    fs = require('fs'),
+    env = 'dev';
 
+app.use(express.static('node_modules/face-api.js/dist'))
+app.use(express.static('public_html/js'))
 
+var http = require('http').createServer(app);
 
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/chain.pem', 'utf8');
+if(env!='dev'){
+  const privateKey = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/privkey.pem', 'utf8');
+  const certificate = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/cert.pem', 'utf8');
+  const ca = fs.readFileSync('/etc/letsencrypt/live/aquajapan2019annualdealersgathering.com/chain.pem', 'utf8');
 
+  const credentials = {
+    key: privateKey,
+    cert: certificate,
+    ca: ca
+  };
+  var http = require('https').createServer(credentials, app)
 
-const credentials = {
-  key: privateKey,
-  cert: certificate,
-  ca: ca
-};
+}
 
-var http = require('http').createServer(app),
-    https = require('https').createServer(credentials, app),
-    io = require('socket.io')(https)
-
+var io = require('socket.io')(http)
 path = __dirname;
 
 app.use(express.static(__dirname + '/'));
@@ -50,10 +54,6 @@ app.use(bodyParser.json());
 	});
 
 
-// app.listen(port);
-// http.listen(port, function(){
-//   console.log('listening on *:'+port);
-// });
-https.listen(port, () => {
-  console.log('HTTPS Server running on port '+port);
+http.listen(port, function(){
+  console.log((env=='dev'?'HTTP':'HTTPS')+' listening on *:'+port);
 });

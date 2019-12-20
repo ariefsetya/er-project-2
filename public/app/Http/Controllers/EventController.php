@@ -43,6 +43,7 @@ class EventController extends Controller
 			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_email_from_name','content'=>'E-Guestbook'],
 			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_success_message','content'=>'REGISTRATION SUCCESS!'],
 			['event_id'=>$evt->id,'type'=>'text','name'=>'barcode_email_sent_message','content'=>'QR code is sent to your e-mail'],
+			['event_id'=>$evt->id,'type'=>'text','name'=>'login_first','content'=>'1'],
 		];
 
 		foreach ($data as $key) {

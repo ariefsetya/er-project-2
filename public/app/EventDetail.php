@@ -8,6 +8,6 @@ class EventDetail extends Model
 {
     protected $table = "ms_event_detail";
     protected $fillable = [
-        'event_id', 'name','content'
+        'event_id', 'name', 'type','content'
     ];
 }

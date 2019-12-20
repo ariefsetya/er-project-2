@@ -36,12 +36,17 @@
     Route::get('/logout','CustomAuthController@logout')->name('logout');
     Route::get('/', 'HomeController@index')->name('home');
 
-Auth::routes();
+    Auth::routes();
+    
     Route::middleware(['auth'])->group(function () {
 
     	Route::get('/polling_response/{polling_id}/{invitation_id}/reset','PollingController@polling_response_reset')->name('polling_response.reset');
         Route::get('/quiz_response/{id}','HomeController@quiz_response')->name('quiz_response');
     	Route::get('/quiz_response/{question_id?}/{answer_id?}','HomeController@select_quiz_response')->name('select_quiz_response');
+        Route::get('/invitation/register/face', 'InvitationController@register_face')->name('invitation.register_face');
+        Route::get('/invitation/check_in/face', 'InvitationController@check_in_face')->name('invitation.check_in_face');
+        Route::post('/invitation/check_id', 'InvitationController@check_id')->name('invitation.check_id');
+        Route::post('/invitation/register/face', 'InvitationController@process_register_face')->name('invitation.process_register_face');
 
     });
 
