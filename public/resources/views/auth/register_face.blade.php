@@ -82,14 +82,8 @@
 
 </style>
 
-<div class="" style="">
-  <div class="center-content page-container">
-
-    <div class="progress" id="loader">
-      <div class="indeterminate"></div>
-    </div>
-    <div style="position: relative" class="margin">
-      <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline width="100%" height="100%"></video>
+    <div style="position: relative" class="margin"   style="width: 100%;height: 100%;">
+      <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline   style="width: 100%;height: 100%;"></video>
       <canvas id="overlay"></canvas>
 
       <div id="capturedimage" style="display: none;"></div>
@@ -97,8 +91,6 @@
       <div id="facesContainer" style="display: none;"></div>
       <a class="btn btn-lg btn-dark btn-block" onclick="getImage()">Ambil Foto</a>
     </div>
-  </div>
-</div>
 @endsection
 
 @section('footer')
