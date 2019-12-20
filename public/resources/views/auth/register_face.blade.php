@@ -209,7 +209,6 @@
     function updateResults() {}
 
     $(document).ready(function() {
-      // initFaceDetectionControls()
       run()
     })
 
