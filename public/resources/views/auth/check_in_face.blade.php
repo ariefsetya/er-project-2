@@ -95,8 +95,8 @@ body {
 @endsection
 
 @section('footer')
-  <script src="http://localhost:9000/face-api.js"></script>
-  <script src="http://localhost:9000/commons.js"></script>
+  <script src="{{url('')}}:9000/face-api.js"></script>
+  <script src="{{url('')}}:9000/commons.js"></script>
   <script type="text/javascript">
 
       let minConfidence = 0.5
