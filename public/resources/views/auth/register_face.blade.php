@@ -90,7 +90,7 @@
       <div id="capturedimage" style="display: none;"></div>
 
       <div id="facesContainer" style="display: none;"></div>
-      <a class="btn btn-lg btn-dark btn-block" onclick="getImage()">Ambil Foto</a>
+      <button class="btn btn-lg btn-dark btn-block" id="getImage" style="display: none;" onclick="getImage()">Ambil Foto</button>
 @endsection
 
 @section('footer')
@@ -121,6 +121,7 @@
         const dims = faceapi.matchDimensions(canvas, videoEl, true)
 
         faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
+        $("#getImage").fadeIn();
 
       }
 
