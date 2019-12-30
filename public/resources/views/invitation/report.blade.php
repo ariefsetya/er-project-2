@@ -9,9 +9,9 @@
     		<tr>
 	    		<th>Kode</th>
                 <th>Nama</th>
-	    		<th>Perusahaan</th>
                 <th>E-Mail</th>
                 <th>Telp</th>
+	    		<th>Perusahaan</th>
                 <th>Tempat Lahir</th>
                 <th>Tanggal Lahir</th>
                 <th>Check In</th>
@@ -19,17 +19,19 @@
     	</thead>
     	<tbody>
     		@foreach($presence as $key)
-    			<tr>
-    				<td>{{$key->invitation->reg_number}}</td>
-                    <td>{{$key->invitation->name}}</td>
-                    <td>{{$key->invitation->company}}</td>
-                    <td>{{$key->invitation->email}}</td>
-                    <td>{{$key->invitation->phone}}</td>
-                    <td>{{$key->invitation->custom_field_1}}</td>
-                    <td>{{$key->invitation->custom_field_2}}</td>
-    				<td>{{$key->start_time}}</td>
-    			</tr>
-    		@endforeach
+                @if($key[0]!='Kode')
+        			<tr>
+        				<td>{{$key[0]}}</td>
+                        <td>{{$key[1]}}</td>
+                        <td>{{$key[2]}}</td>
+                        <td>{{$key[3]}}</td>
+                        <td>{{$key[4]}}</td>
+                        <td>{{$key[5]}}</td>
+                        <td>{{$key[6]}}</td>
+                        <td>{{$key[7]}}</td>
+        			</tr>
+        		@endif
+            @endforeach
     	</tbody>
     </table>
 </div>

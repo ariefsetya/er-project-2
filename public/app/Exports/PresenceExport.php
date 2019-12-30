@@ -25,7 +25,7 @@ class PresenceExport implements FromCollection
     			'Perusahaan ',
                 'Tempat Lahir ',
                 'Tanggal Lahir ',
-    			'Tanggal Daftar'
+    			'Check In'
     		];
     	foreach ($data as $key) {
     		if($key->invitation->user_type_id==2){
@@ -43,7 +43,7 @@ class PresenceExport implements FromCollection
     	}
 
 
-        $data = Invitation::where('event_id',Session::get('event_id'))->where('user_type_id',2)->whereNotIn('invitation_id',array_values($data->toArray()))->get();
+        $data = Invitation::where('event_id',Session::get('event_id'))->where('user_type_id',2)->whereNotIn('id',array_values($data->toArray()))->get();
 
         foreach ($data as $key) {
                 $arr[] = [
